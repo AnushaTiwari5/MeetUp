@@ -12,7 +12,7 @@ function LocationBookForm({ onSubmit }) {
   const [index, setIndex] = useState(0)
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [date, setDate] = useState("");
+  // const [date, setDate] = useState("");
   const [firstTime, setfirstTime] = useState("");
   const [lastTime, setlastTime] = useState("");
   const [location, setlocation] = useState("");
@@ -20,7 +20,8 @@ function LocationBookForm({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIndex(index + 1)
-    onSubmit({ index, date, firstTime, lastTime, location });
+    //onSubmit({ index, date, firstTime, lastTime, location });
+    onSubmit({ index, title, desc, firstTime, lastTime, location });
 
   };
 
@@ -74,7 +75,7 @@ function LocationBookForm({ onSubmit }) {
           type='datetime-local'
           required
           value={firstTime}
-          onChange={(event) => setfirstTime(event.target.value)}
+          onChange={(event) => setfirstTime(event.target.value.replace("T", " "))}
         />
         <br />
         <label style={{ fontWeight: "bold" }}>End Date and Time:</label>
@@ -84,7 +85,7 @@ function LocationBookForm({ onSubmit }) {
           type='datetime-local'
           required
           value={lastTime}
-          onChange={(event) => setlastTime(event.target.value)}
+          onChange={(event) => setlastTime(event.target.value.replace("T", " "))}
         />
         <br />
         <label style={{ fontWeight: "bold" }}>Location:</label>
@@ -199,8 +200,10 @@ export default function LocationBook() {
   }
 
   const submit = async () => {
+    console.log(sortedEntries);
     try {
-      let data = await axios.post("http://localhost:4000/CreatePoll", sortedEntries)//post result to server
+      // let data = await axios.post("http://localhost:4000/CreatePoll", sortedEntries) //post result to server
+      let data = await axios.post("http://localhost:3000/CreatePoll", sortedEntries)
 
     } catch (e) {
       console.log(e)
@@ -208,65 +211,80 @@ export default function LocationBook() {
   }
 
   return (
-    <section
-    style={{
-      backgroundColor: "rgb(123, 109, 154)",
-      height: "100vh"
-    }}>
+    <div
+      style={{
+        backgroundColor: "rgb(125, 112, 156)",
+        height: "100vh"
+      }}>
       <MyNavbar />
       <h2 style={{ textAlign: "center", marginTop: "20px" }}>
         Welcome to the Event Creation Page!
       </h2>
       <p style={{ textAlign: "center", fontSize: "25px" }}>Enter the relevant details for your event below</p>
-      <LocationBookForm onSubmit={addEntryTolocationBook} />
 
-      <table
+      <div
         style={{
-          margin: "5px"
-        }}
-        className='informationTable'>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>location</th>
-          </tr>
-        </thead>
+          float: "left",
+          padding: "3%"
+        }}>
+        <LocationBookForm onSubmit={addEntryTolocationBook} />
+      </div>
 
-        <tbody>
-          {sortedEntries.map((entry, index) => (
-            <tr key={index}>
-              <td>{entry.date}</td>
-              <td>{entry.firstTime}</td>
-              <td>{entry.lastTime}</td>
-              <td>{entry.location}</td>
+      <div
+        style={{
+          float: "left",
+          padding: "3%",
+        }}>
 
-              <td> <Button onClick={() => remove(entry.index)}>
-                remove
-              </Button></td>
+        <table
+          style={{
+            margin: "5px",
+
+          }}
+          className='informationTable'>
+          <thead>
+            <tr>
+              {/* <th>Date</th> */}
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Location</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
 
-      <p />
-      <Button
-        style={{
-          margin: "5px"
-        }}
-        onClick={() => submit()}>
-        Finish Creating Poll
-      </Button>
+          <tbody>
+            {sortedEntries.map((entry, index) => (
+              <tr key={index}>
+                {/* <td>{entry.date}</td> */}
+                <td>{entry.firstTime}</td>
+                <td>{entry.lastTime}</td>
+                <td>{entry.location}</td>
 
-      <p />
-      <a href="/Invite">
+                <td> <Button onClick={() => remove(entry.index)}>
+                  remove
+                </Button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <p />
         <Button
           style={{
             margin: "5px"
-          }}>Invite Participants</Button>
-      </a>
-    </section>
+          }}
+          onClick={() => submit()}>
+          Finish Creating Poll
+        </Button>
+
+        <p />
+        <a href="/Invite">
+          <Button
+            style={{
+              margin: "5px"
+            }}>Invite Participants</Button>
+        </a>
+      </div>
+    </div>
 
   );
 }

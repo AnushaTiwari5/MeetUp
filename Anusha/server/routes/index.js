@@ -31,3 +31,36 @@ router.get('/', function (req, res, next) {
 });
 
 module.exports = router;
+
+// var express = require('express');
+// //const app = express();
+// var router = express.Router();
+
+// var eventData = [{
+//   0: {
+//     desc: "",
+//     firstTime : "2023-02-27 11:15", 
+//     index : 0,
+//     lastTime : "2023-02-27 11:30",
+//     location : "Zoom",
+//     title : "Meet"
+//   },
+
+//   1: {
+//     desc: "",
+//     firstTime : "2023-02-27 11:15", 
+//     index : 1,
+//     lastTime : "2023-02-27 11:30",
+//     location : "Zoom",
+//     title : "Person"
+//   }
+// }]
+
+
+// /* GET home page. */
+// router.get('/', function (req, res, next) {
+//   //res.render('index', { title: 'Express' });
+//   res.json(eventData)
+// });
+
+// module.exports = router;
