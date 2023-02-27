@@ -200,10 +200,8 @@ export default function LocationBook() {
   }
 
   const submit = async () => {
-    console.log(sortedEntries);
     try {
-      // let data = await axios.post("http://localhost:4000/CreatePoll", sortedEntries) //post result to server
-      let data = await axios.post("http://localhost:3000/CreatePoll", sortedEntries)
+      let data = await axios.post("http://localhost:4000/CreatePoll", sortedEntries)//post result to server
 
     } catch (e) {
       console.log(e)
@@ -211,45 +209,31 @@ export default function LocationBook() {
   }
 
   return (
-    <div
-      style={{
-        backgroundColor: "rgb(125, 112, 156)",
-        height: "100vh"
-      }}>
+    <section
+    style={{
+      backgroundColor: "rgb(123, 109, 154)",
+      height: "100vh"
+    }}>
       <MyNavbar />
       <h2 style={{ textAlign: "center", marginTop: "20px" }}>
         Welcome to the Event Creation Page!
       </h2>
       <p style={{ textAlign: "center", fontSize: "25px" }}>Enter the relevant details for your event below</p>
+      <LocationBookForm onSubmit={addEntryTolocationBook} />
 
-      <div
+      <table
         style={{
-          float: "left",
-          padding: "3%"
-        }}>
-        <LocationBookForm onSubmit={addEntryTolocationBook} />
-      </div>
-
-      <div
-        style={{
-          float: "left",
-          padding: "3%",
-        }}>
-
-        <table
-          style={{
-            margin: "5px",
-
-          }}
-          className='informationTable'>
-          <thead>
-            <tr>
-              {/* <th>Date</th> */}
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Location</th>
-            </tr>
-          </thead>
+          margin: "5px"
+        }}
+        className='informationTable'>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>location</th>
+          </tr>
+        </thead>
 
           <tbody>
             {sortedEntries.map((entry, index) => (
@@ -259,32 +243,31 @@ export default function LocationBook() {
                 <td>{entry.endTime}</td>
                 <td>{entry.location}</td>
 
-                <td> <Button onClick={() => remove(entry.index)}>
-                  remove
-                </Button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              <td> <Button onClick={() => remove(entry.index)}>
+                remove
+              </Button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-        <p />
+      <p />
+      <Button
+        style={{
+          margin: "5px"
+        }}
+        onClick={() => submit()}>
+        Finish Creating Poll
+      </Button>
+
+      <p />
+      <a href="/Invite">
         <Button
           style={{
             margin: "5px"
-          }}
-          onClick={() => submit()}>
-          Finish Creating Poll
-        </Button>
-
-        <p />
-        <a href="/Invite">
-          <Button
-            style={{
-              margin: "5px"
-            }}>Invite Participants</Button>
-        </a>
-      </div>
-    </div>
+          }}>Invite Participants</Button>
+      </a>
+    </section>
 
   );
 }

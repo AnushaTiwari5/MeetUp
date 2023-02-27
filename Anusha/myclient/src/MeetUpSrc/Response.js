@@ -226,7 +226,7 @@ export default function Response() {
     return (
         <div className="ResponsePage"
         style={{
-            backgroundColor: "rgb(125, 112, 156)",
+            backgroundColor: "rgb(123, 109, 154)",
             height: "100vh"
           }}>
             <MyNavbar />
