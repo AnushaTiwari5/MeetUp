@@ -1,0 +1,10 @@
+table,
+thead,
+tbody,
+tr,
+th,
+td {
+    border: 1px solid black;
+    padding: 15px;
+    width: auto;
+}

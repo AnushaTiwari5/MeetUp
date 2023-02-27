@@ -1,4 +1,5 @@
-//import "./Response.css";
+import "./Response.css";
+import MyNavbar from "./Navbar";
 
 import { Row, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
@@ -94,7 +95,7 @@ export default function Response() {
         return (
             <Row md={5}
                 style={{
-                    paddingTop: "40px",
+                    paddingTop: "10px",
                     paddingLeft: "150px",
                     paddingRight: "150px"
                 }}
@@ -225,13 +226,13 @@ export default function Response() {
 
     return (
         <div className="ResponsePage"
-            style={{
-                paddingTop: "40px"
-            }}>
-
+        style={{
+            backgroundColor: "rgb(123, 109, 154)",
+            height: "100vh"
+          }}>
+            <MyNavbar />
             <h2
                 style={{
-                    paddingTop: "30px",
                     textAlign: "center"
                 }}>
                 {description}
@@ -239,7 +240,7 @@ export default function Response() {
 
             <p 
                 style={{
-                    paddingTop: "30px",
+                    paddingTop: "10px",
                     lineHeight: "2.0",
                     textAlign: "center"
                 }}>

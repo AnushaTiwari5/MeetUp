@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import { Link } from "react-router-dom";
+
 function LocationBookForm({ onSubmit }) {
   const [index, setIndex] = useState(0)
   const [date, setDate] = useState("");
@@ -28,7 +29,7 @@ function LocationBookForm({ onSubmit }) {
         <br />
         <input
           name='userDate'
-          type='text'
+          type='date'
           value={date}
           onChange={(event) => setDate(event.target.value)}
         />
@@ -38,7 +39,7 @@ function LocationBookForm({ onSubmit }) {
         <br />
         <input
           name='userfirstTime'
-          type='text'
+          type='time'
           value={firstTime}
           onChange={(event) => setfirstTime(event.target.value)}
         />
@@ -47,7 +48,7 @@ function LocationBookForm({ onSubmit }) {
         <br />
         <input
           name='userlastTime'
-          type='text'
+          type='time'
           value={lastTime}
           onChange={(event) => setlastTime(event.target.value)}
         />
@@ -78,7 +79,7 @@ function NavBar() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/">Create Event</Link>
+          <Link to="/CreatePoll">Create Event</Link>
         </li>
         <li>
           <Link to="/">Personal</Link>
@@ -158,6 +159,7 @@ export default function LocationBook() {
       console.log(e)
   }  
   }
+  
   return (
     <section>
       <LocationBookForm onSubmit={addEntryTolocationBook} />
@@ -170,6 +172,7 @@ export default function LocationBook() {
           <th>location</th>
         </tr>
       </thead>
+      
       <tbody>
         {sortedEntries.map((entry, index) => (
           <tr key={index}>
@@ -182,15 +185,13 @@ export default function LocationBook() {
               remove
             </button></td>
           </tr>
-
-
         ))}
       </tbody>
     </table>
       
     <button className="SubmitButton"
               onClick={() => submit()}>
-              Finishe Creating Poll
+              Finish Creating Poll
             </button>
     </section>
 
