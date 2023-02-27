@@ -12,6 +12,7 @@ export default function Response() {
 
     const [eventdata, setEventdata] = useState(null);
     var description = "";
+    var title = "";
     var pollID;
     var responseData = {};
 
@@ -25,12 +26,10 @@ export default function Response() {
     }, [])
 
     if (eventdata != null) {
-        description = eventdata.description;
-        var polls = eventdata.Polls;
-        var pollEntries = Object.entries(polls);
-        pollID = 1;
-        responseData = (pollEntries[pollID])[1];
-        console.log(responseData);
+        description = eventdata[0].description;
+        title = eventdata[0].title;
+        responseData = eventdata[0]; //.Polls;
+        //pollEntries = Object.entries(polls);
     }
 
     const [mouseHoverN, setMouseHoverN] = useState(false);
@@ -235,8 +234,14 @@ export default function Response() {
                 style={{
                     textAlign: "center"
                 }}>
-                {description}
+                {title}
             </h2>
+            <h4 
+            style={{
+                    textAlign: "center"
+                }}>
+                    {description}
+            </h4>
 
             <p 
                 style={{
@@ -244,9 +249,9 @@ export default function Response() {
                     lineHeight: "2.0",
                     textAlign: "center"
                 }}>
-                <span style={{ fontSize: "30px" }}>{responseData.date}</span>
+                <span style={{ fontSize: "30px" }}>{responseData.startTime}</span>
                 <br />
-                <span style={{ fontSize: "25px" }}>{responseData.time}</span>
+                <span style={{ fontSize: "30px" }}>{responseData.endTime}</span>
                 <br />
                 <span style={{ fontSize: "25px" }}>{responseData.location}</span>
             </p>
