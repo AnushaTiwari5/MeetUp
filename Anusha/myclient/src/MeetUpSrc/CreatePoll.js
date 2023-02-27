@@ -13,15 +13,15 @@ function LocationBookForm({ onSubmit }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   // const [date, setDate] = useState("");
-  const [firstTime, setfirstTime] = useState("");
-  const [lastTime, setlastTime] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [location, setlocation] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIndex(index + 1)
     //onSubmit({ index, date, firstTime, lastTime, location });
-    onSubmit({ index, title, desc, firstTime, lastTime, location });
+    onSubmit({ index, title, desc, startTime, endTime, location });
 
   };
 
@@ -74,8 +74,8 @@ function LocationBookForm({ onSubmit }) {
           name='userfirstTime'
           type='datetime-local'
           required
-          value={firstTime}
-          onChange={(event) => setfirstTime(event.target.value.replace("T", " "))}
+          value={startTime}
+          onChange={(event) => setStartTime(event.target.value.replace("T", " "))}
         />
         <br />
         <label style={{ fontWeight: "bold" }}>End Date and Time:</label>
@@ -84,8 +84,8 @@ function LocationBookForm({ onSubmit }) {
           name='userlastTime'
           type='datetime-local'
           required
-          value={lastTime}
-          onChange={(event) => setlastTime(event.target.value.replace("T", " "))}
+          value={endTime}
+          onChange={(event) => setEndTime(event.target.value.replace("T", " "))}
         />
         <br />
         <label style={{ fontWeight: "bold" }}>Location:</label>
@@ -255,8 +255,8 @@ export default function LocationBook() {
             {sortedEntries.map((entry, index) => (
               <tr key={index}>
                 {/* <td>{entry.date}</td> */}
-                <td>{entry.firstTime}</td>
-                <td>{entry.lastTime}</td>
+                <td>{entry.startTime}</td>
+                <td>{entry.endTime}</td>
                 <td>{entry.location}</td>
 
                 <td> <Button onClick={() => remove(entry.index)}>

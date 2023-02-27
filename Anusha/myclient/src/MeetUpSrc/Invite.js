@@ -9,6 +9,7 @@ export default function Invite() {
     //const invitee;
 
     const [eventdata, setEventdata] = useState(null);
+    var title = "";
     var description = "";
     var polls = {};
     var pollEntries = [];
@@ -24,9 +25,24 @@ export default function Invite() {
     }, [])
 
     if (eventdata != null) {
-        description = eventdata.description;
-        polls = eventdata.Polls;
-        pollEntries = Object.entries(polls);
+        description = eventdata[0].description;
+        title = eventdata[0].title;
+        polls = eventdata; //.Polls;
+        //pollEntries = Object.entries(polls);
+    }
+
+    const displayData = () => {
+        for (const [index, entry] of Object.entries(polls)) {
+            console.log("func run")
+            return (
+                <tr key={index}>
+                <td>{(entry.index) + 1}</td>
+                <td>{entry.startTime}</td>
+                <td>{entry.endTime}</td>
+                <td>{entry.location}</td>
+                </tr>
+            )
+        }
     }
 
     const [newEmail, setNewEmail] = useState("");
@@ -42,18 +58,16 @@ export default function Invite() {
         setInviteEmails(arr => [...arr, newEmail]);
     }
 
-
-
     const handleInvite = () => {
         alert("Invite sent");
     }
 
     return (
         <div
-        style={{
-            backgroundColor: "rgb(123, 109, 154)",
-            height: "100vh"
-          }}>
+            style={{
+                backgroundColor: "rgb(123, 109, 154)",
+                height: "100vh"
+            }}>
             <MyNavbar />
             <h2 style={{ textAlign: "center" }}>
                 <b>{description}</b>
@@ -72,14 +86,14 @@ export default function Invite() {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Date</th>
-                                <th>Time</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
                                 <th>Location</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {
+                            {/* {
                                 pollEntries.map((entry, index) => {
                                     return (
                                         <tr key={index}>
@@ -90,14 +104,17 @@ export default function Invite() {
                                         </tr>
                                     )
                                 })
-                            }
+                            } */}
+
+                            {displayData()}
+
                         </tbody>
                     </table>
                 </div>
 
                 <div className='email-input'>
                     <form onSubmit={e => handleSubmit(e)}>
-                        <label style={{fontWeight: "bold"}}>Enter email address:</label>
+                        <label style={{ fontWeight: "bold" }}>Enter email address:</label>
                         <br />
 
                         <input style={{
@@ -114,8 +131,8 @@ export default function Invite() {
                     </form>
 
                     <Button
-                    style={{marginTop: "5px"}} 
-                    onClick={handleInvite}>
+                        style={{ marginTop: "5px" }}
+                        onClick={handleInvite}>
                         Invite
                     </Button>
                 </div>

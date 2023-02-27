@@ -7,8 +7,8 @@ export default function MyNavbar() {
                 <Navbar.Brand href="/">
                     <Image style={{ marginLeft: "10%" }}
                         src="https://anushasawsbucket.s3.amazonaws.com/MeetUp+Logo.png" roundedCircle
-                        width="130px"
-                        height="80px"
+                        width="150px"
+                        height="90px"
                         alt="MeetUp Logo"
                     />
                 </Navbar.Brand>
