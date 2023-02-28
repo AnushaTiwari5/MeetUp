@@ -17,6 +17,7 @@ function App() {
                 <Route path='/CreatePoll' element={<CreatePoll />} />
                 <Route path='/Response' element={<Response />} />
                 <Route path='/Invite' element={<Invite />} />
+                <Route path='/ViewPoll' element={<PollBarChart />} />
             </Routes>
         </Router>
     )

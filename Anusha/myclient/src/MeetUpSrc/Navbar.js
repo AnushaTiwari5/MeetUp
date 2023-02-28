@@ -37,6 +37,10 @@ export default function MyNavbar() {
                     <Nav className='Response'>
                         <Nav.Link href='/Response'> Response </Nav.Link>
                     </Nav>
+
+                    <Nav className='Viewpoll'>
+                        <Nav.Link href='/Viewpoll'> View Poll Stats </Nav.Link>
+                    </Nav>
                 </Navbar.Collapse>
             </Navbar>
         </div>
