@@ -65,7 +65,7 @@ export default function Invite() {
     return (
         <div
             style={{
-                backgroundColor: "rgb(123, 109, 154)",
+                backgroundColor: "rgb(125, 112, 156)",
                 height: "100vh"
             }}>
             <MyNavbar />
