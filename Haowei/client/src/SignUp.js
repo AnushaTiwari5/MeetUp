@@ -5,11 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space } from 'antd';
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
+import { notification } from 'antd';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,31 +30,60 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
-const [email, setemail] = useState("");
-const [password, setpassword] = useState("");
-const [repassword,setrepassword] = useState("");
+
+
 
 const create_account = (auth, email, password,rep)=>{
 
     if(password != rep){
+      notification.open({
+        message: 'password is not matched',
+        description:
+          'You should make sure to input password correctly twice',
+      });
 
-    }
-
-
-    createUserWithEmailAndPassword(auth, email, password)
+    }else{
+      try{
+        createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
     // Signed in
             const user = userCredential.user;
+            notification.open({
+              message: 'welcome to meetup!',
+              description:
+                'Your account is created',
+            });
     // ...
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        notification.open({
+          message: 'Create account faild',
+          description:
+            'Check if you input valid email ot account is exist.',
+        });
     // ..
   });
+      }catch(e){
+        notification.open({
+          message: 'Create account faild',
+          description:
+            'Check if you input valid email ot account is exist.',
+        });
+      }
+      
+    }
+
+
+    
+
 }
 
 const SignUp = () => {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [repassword,setrepassword] = useState("");
     const [passwordVisible, setPasswordVisible] = React.useState(false);
     return (
       <Space direction="vertical">
@@ -71,6 +101,7 @@ const SignUp = () => {
           <Input.Password
             placeholder="input password"
             visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
+            onChange={(event) => setpassword(event.target.value)}
           />
           <Button style={{ width: 80 }} onClick={() => setPasswordVisible((prevState) => !prevState)}>
             {passwordVisible ? 'Hide' : 'Show'}
@@ -80,6 +111,7 @@ const SignUp = () => {
           <Input.Password
             placeholder="check password"
             visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
+            onChange={(event) => setrepassword(event.target.value)}
           />
           <Button style={{ width: 80 }} onClick={() => setPasswordVisible((prevState) => !prevState)}>
             {passwordVisible ? 'Hide' : 'Show'}
@@ -93,3 +125,6 @@ const SignUp = () => {
   };
   
   export default SignUp;
+
+
+  
