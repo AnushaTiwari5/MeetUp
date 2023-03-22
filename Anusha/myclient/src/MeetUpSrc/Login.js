@@ -93,9 +93,13 @@ const Login = () => {
               {passwordVisible ? 'Hide' : 'Show'}
             </Button>
           </Space>
+
+          <a href="/">
           <Button style={{ width: 80 }} onClick={() => signIn(auth, email, password)}>
             {"Sign in"}
           </Button>
+          </a>
+          
         </Space>
 
         <p>
