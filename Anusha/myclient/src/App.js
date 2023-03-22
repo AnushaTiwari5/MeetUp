@@ -8,6 +8,8 @@ import Response from "./MeetUpSrc/Response";
 import Invite from "./MeetUpSrc/Invite";
 import CreatePoll from "./MeetUpSrc/CreatePoll"
 import PollBarChart from "./MeetUpSrc/PollBarChart";
+import Login from './MeetUpSrc/Login';
+import SignUp from "./MeetUpSrc/Signup";
 
 function App() {
     return (
@@ -18,6 +20,8 @@ function App() {
                 <Route path='/Response' element={<Response />} />
                 <Route path='/Invite' element={<Invite />} />
                 <Route path='/ViewPoll' element={<PollBarChart />} />
+                <Route path='/Login' element={<Login />} />
+                <Route path='/SignUp' element={<SignUp />} />
             </Routes>
         </Router>
     )

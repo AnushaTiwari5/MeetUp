@@ -201,7 +201,7 @@ export default function LocationBook() {
 
   const submit = async () => {
     try {
-      let data = await axios.post("http://localhost:4000/CreatePoll", sortedEntries)//post result to server
+      let data = await axios.post("http://localhost:3000/CreatePoll", sortedEntries)//post result to server
 
     } catch (e) {
       console.log(e)
@@ -209,11 +209,7 @@ export default function LocationBook() {
   }
 
   return (
-    <section
-      style={{
-        backgroundColor: "rgb(125, 112, 156)",
-        height: "100vh"
-      }}>
+    <section className="mainDisplay">
       <MyNavbar />
       <h2 style={{ textAlign: "center", marginTop: "5px" }}>
         Welcome to the Event Creation Page!

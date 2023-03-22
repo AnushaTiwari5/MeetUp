@@ -1,4 +1,4 @@
-import { Nav, Navbar, Image } from "react-bootstrap";
+import { Nav, Navbar, Image, Button } from "react-bootstrap";
 
 export default function MyNavbar() {
     return (
@@ -21,10 +21,10 @@ export default function MyNavbar() {
                         textShadow: "1px 1px 25px white"
                     }}>
 
-                    <Nav className='home'>
+                    <Nav >
                         <Nav.Link href='/'> Meet Up </Nav.Link>
                     </Nav>
-                    
+
 
                     {/* <Nav className="createpoll">
                         <Nav.Link href="/CreatePoll"> Create Poll </Nav.Link>
@@ -34,12 +34,24 @@ export default function MyNavbar() {
                         <Nav.Link href='/Invite'> Invite </Nav.Link>
                     </Nav> */}
 
-                    <Nav className='Response'>
+                    <Nav >
                         <Nav.Link href='/Response'> Response </Nav.Link>
                     </Nav>
 
-                    <Nav className='Viewpoll'>
+                    <Nav >
                         <Nav.Link href='/Viewpoll'> View Poll Stats </Nav.Link>
+                    </Nav>
+
+                    <Nav className="ms-auto"
+                        style={{
+                            marginRight: "3%",
+                            border: "2px solid black",
+                            borderRadius: "30px",
+                            fontWeight: "bold"
+                        }}>
+                        <Nav.Link href='/Login'>
+                            {"Login " + String.fromCharCode(8594)}
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

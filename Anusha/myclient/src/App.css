@@ -2,3 +2,8 @@
   /* background-color: rgb(123, 109, 154); */
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.mainDisplay {
+  background-color: rgb(211, 202, 236);
+  height: 100vh;
+}

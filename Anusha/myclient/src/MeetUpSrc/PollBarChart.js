@@ -105,11 +105,7 @@ const options = {
 };
 
 const PollBarChart = () => (
-  <div
-  style={{
-    backgroundColor: "rgb(123, 109, 154)",
-    height: "200vh"
-  }}>
+  <div className='mainDisplay'>
     <MyNavbar />
     <div className="container mt-3">
     <div>

@@ -63,11 +63,7 @@ export default function Invite() {
     }
 
     return (
-        <div
-            style={{
-                backgroundColor: "rgb(125, 112, 156)",
-                height: "100vh"
-            }}>
+        <div className='mainDisplay'>
             <MyNavbar />
             <h2 style={{ textAlign: "center" }}>
                 <b>{description}</b>
