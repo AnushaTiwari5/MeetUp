@@ -1,48 +1,26 @@
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import MyNavbar from "./Navbar";
+import { MDBDataTable } from "mdbreact";
 
 export default function Invite() {
-
-    //const eventID;
-    //const inviter;
-    //const invitee;
 
     const [eventdata, setEventdata] = useState(null);
     var title = "";
     var description = "";
-    var polls = {};
-    var pollEntries = [];
-
 
     useEffect(() => {
-        const url = `http://localhost:3000`;
+        const url = `http://localhost:3000/PollData`;
         fetch(url)
             .then((res) => res.json())
             .then((res) => {
-                setEventdata(res[0]);
+                setEventdata(res);
             })
     }, [])
 
     if (eventdata != null) {
-        description = eventdata[0].description;
+        description = eventdata[0].description ? eventdata[0].description : "";
         title = eventdata[0].title;
-        polls = eventdata; //.Polls;
-        //pollEntries = Object.entries(polls);
-    }
-
-    const displayData = () => {
-        for (const [index, entry] of Object.entries(polls)) {
-            console.log("func run")
-            return (
-                <tr key={index}>
-                <td>{(entry.index) + 1}</td>
-                <td>{entry.startTime}</td>
-                <td>{entry.endTime}</td>
-                <td>{entry.location}</td>
-                </tr>
-            )
-        }
     }
 
     const [newEmail, setNewEmail] = useState("");
@@ -62,12 +40,43 @@ export default function Invite() {
         alert("Invite sent");
     }
 
+    const tableData = {
+        columns: [
+            {
+                label: "ID",
+                field: "index",
+                width: 10,
+            },
+            {
+                label: "Start Time",
+                field: "startTime",
+                width: 30,
+            },
+            {
+                label: "End Time",
+                field: "endTime",
+                width: 30
+            },
+            {
+                label: "Location",
+                field: "location",
+                width: 30
+            }
+        ],
+
+        rows: eventdata
+
+    }
+
     return (
         <div className='mainDisplay'>
             <MyNavbar />
-            <h2 style={{ textAlign: "center" }}>
-                <b>{description}</b>
-            </h2>
+            <p style={{ textAlign: "center" }}>
+                <b style={{ fontSize: "20px" }}>{title}</b>
+                <br />
+                <i style={{ fontSize: "15px" }}>{description}</i>
+            </p>
+
 
             <div className='grid-container'
                 style={{
@@ -76,41 +85,34 @@ export default function Invite() {
                     paddingTop: "20px",
                     marginLeft: "10px"
                 }}>
-
-                <div className='data-column'>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Location</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {/* {
-                                pollEntries.map((entry, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{entry[1].ID}</td>
-                                            <td>{entry[1].date}</td>
-                                            <td>{entry[1].time}</td>
-                                            <td>{entry[1].location}</td>
-                                        </tr>
-                                    )
-                                })
-                            } */}
-
-                            {displayData()}
-
-                        </tbody>
-                    </table>
+                <div
+                style={{
+                    width: "95%%",
+                    padding: "2%",
+                    border: "1px solid black"
+                }}>
+                    <MDBDataTable
+                        scrollX
+                        scrollY
+                        maxHeight='50%'
+                        striped
+                        bordered
+                        small
+                        hover
+                        data={tableData}
+                    />
                 </div>
 
-                <div className='email-input'>
+                <div className='email-input'
+                style={{
+                    marginLeft: "2%"
+                }}>
                     <form onSubmit={e => handleSubmit(e)}>
-                        <label style={{ fontWeight: "bold" }}>Enter email address:</label>
+                        <label style={{ 
+                            fontWeight: "bold",
+                            }}>
+                                Enter email address:
+                            </label>
                         <br />
 
                         <input style={{

@@ -3,7 +3,7 @@ import { Nav, Navbar, Image, Button } from "react-bootstrap";
 export default function MyNavbar() {
     return (
         <div className="MyNavbar">
-            <Navbar >
+            <Navbar variant="light">
                 <Navbar.Brand href="/">
                     <Image style={{ marginLeft: "10%" }}
                         src="https://anushasawsbucket.s3.amazonaws.com/MeetUp+Logo.png" roundedCircle
