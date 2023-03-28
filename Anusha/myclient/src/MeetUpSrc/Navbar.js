@@ -83,7 +83,7 @@ export default function MyNavbar() {
                     </Nav> */}
 
                     <Nav >
-                        <Nav.Link href='/EventResponse'> Response </Nav.Link>
+                        <Nav.Link href='/Response'> Response </Nav.Link>
                     </Nav>
 
                     <Nav >

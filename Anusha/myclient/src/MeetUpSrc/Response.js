@@ -3,6 +3,7 @@ import MyNavbar from "./Navbar";
 
 import { Row, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import EventResponse from "./EventRepsonse";
 
 export default function Response() {
     //const eventID;
@@ -13,11 +14,10 @@ export default function Response() {
     const [eventdata, setEventdata] = useState(null);
     var description = "";
     var title = "";
-    var pollID;
-    var responseData = {};
+    /* var responseData = {}; */
 
     useEffect(() => {
-        const url = `http://localhost:3000`;
+        const url = `http://localhost:3000/PollData`;
         fetch(url)
             .then((res) => res.json())
             .then((res) => {
@@ -26,10 +26,8 @@ export default function Response() {
     }, [])
 
     if (eventdata != null) {
-        description = eventdata[0].description;
-        title = eventdata[0].title;
-        responseData = eventdata[0]; //.Polls;
-        //pollEntries = Object.entries(polls);
+        description = eventdata.description ? eventdata.description : "";
+        title = eventdata.title;
     }
 
     const [mouseHoverN, setMouseHoverN] = useState(false);
@@ -245,11 +243,11 @@ export default function Response() {
                     lineHeight: "2.0",
                     textAlign: "center"
                 }}>
-                <span style={{ fontSize: "30px" }}>{responseData.startTime}</span>
+                <span style={{ fontSize: "30px" }}>{eventdata.startTime}</span>
                 <br />
-                <span style={{ fontSize: "30px" }}>{responseData.endTime}</span>
+                <span style={{ fontSize: "30px" }}>{eventdata.endTime}</span>
                 <br />
-                <span style={{ fontSize: "25px" }}>{responseData.location}</span>
+                <span style={{ fontSize: "25px" }}>{eventdata.location}</span>
             </p>
 
             {responded ? showResponse() : showResponseButtons()}
