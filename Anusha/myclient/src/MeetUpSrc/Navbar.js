@@ -1,6 +1,37 @@
 import { Nav, Navbar, Image, Button } from "react-bootstrap";
-
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from './Firebase/Auth'
+import firebase from 'firebase/compat/app';
+import firebaseApp from "./Firebase/firebase";
+import { doSignOut } from "./Firebase/firebaseops";
+import { Link, useNavigate } from "react-router-dom";
 export default function MyNavbar() {
+    const { currentUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const Botton = () => {
+        if (currentUser == null) {
+            return (<Nav.Link href='/Login'>
+                {"Login " + String.fromCharCode(8594)}
+            </Nav.Link>)
+        } else {
+            return (
+                <Button
+            onClick={() => Signout()}>
+            Log out
+          </Button>
+            )
+        }
+    }
+    const Signout = ()=>{
+        doSignOut();
+        navigate(0);
+
+    }
+    const b = Botton();
+    //const status = Botton();
+    // <Nav.Link href='/Login'>
+    //                         {"Login " + String.fromCharCode(8594)}
+    //                     </Nav.Link>
     return (
         <div className="MyNavbar">
             <Navbar variant="light">
@@ -49,12 +80,11 @@ export default function MyNavbar() {
                             borderRadius: "30px",
                             fontWeight: "bold"
                         }}>
-                        <Nav.Link href='/Login'>
-                            {"Login " + String.fromCharCode(8594)}
-                        </Nav.Link>
+                       {b}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+
         </div>
     )
 }

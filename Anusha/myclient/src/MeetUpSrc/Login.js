@@ -40,15 +40,18 @@ const Login = () => {
     try {
       console.log(e, p);
       await doSignInWithEmailAndPassword(e, p)
-      //alert("user id ",user.uid)
+   
     } catch (err) {
-      alert("Your email or password is incorrect")
+      console.log(err);
+      alert(err);
     }
     if (currentUser) {
       const userCredential = firebase.auth().currentUser;
       console.log(userCredential.uid);
     }
   }
+
+ 
   return (
     <div className="mainDisplay">
 
