@@ -92,7 +92,7 @@ const Login = () => {
             </Button>
           </Space>
 
-          <a href="/">
+          <a href="/CreatePoll">
             <Button style={{ width: 80 }} onClick={() => SignIn(email, password)}>
               {"Sign in"}
             </Button>
