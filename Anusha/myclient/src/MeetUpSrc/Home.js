@@ -1,10 +1,66 @@
 import React from "react";
+import { useContext } from "react";
 import { Button } from "react-bootstrap";
-
+import { AuthContext } from "./Firebase/Auth";
 import MyNavbar from "./Navbar";
 
 
 export default function Home() {
+
+    const { currentUser } = useContext(AuthContext);
+
+    const Buttons = () => {
+        if (currentUser === null) {
+            return (
+                <div>
+                    <a href="/CreatePoll">
+                        <Button
+                            style={{
+                                fontSize: "20px",
+                                margin: "auto",
+                                width: "30%",
+                                marginTop: "20px",
+                                boxShadow: "1px 1px 25px rgba(0, 0, 255, 0.7)",
+                            }}>
+                            Continue as Guest
+                        </Button>
+                    </a>
+
+                    <a href="/Login">
+                        <Button
+                            style={{
+                                fontSize: "20px",
+                                margin: "auto",
+                                width: "30%",
+                                marginTop: "20px",
+                                boxShadow: "1px 1px 25px rgba(0, 0, 255, 0.7)",
+                            }}>
+                            Login | Register
+                        </Button>
+                    </a>
+                </div>
+
+            )
+        } else {
+            return (
+                <a href="/CreatePoll">
+                    <Button
+                        style={{
+                            fontSize: "20px",
+                            margin: "auto",
+                            width: "30%",
+                            marginTop: "20px",
+                            boxShadow: "1px 1px 25px rgba(0, 0, 255, 0.7)",
+                        }}>
+                        Continue to Create Polls
+                    </Button>
+                </a>
+            )
+        }
+    }
+
+    const b = Buttons();
+
     return (
         <div className="mainDisplay"
             style={{
@@ -55,31 +111,8 @@ export default function Home() {
 
                 </p>
 
-                <a href="/CreatePoll">
-                    <Button
-                        style={{
-                            fontSize: "20px",
-                            margin: "auto",
-                            width: "30%",
-                            marginTop: "20px",
-                            boxShadow: "1px 1px 25px rgba(0, 0, 255, 0.7)",
-                        }}>
-                        Continue as Guest
-                    </Button>
-                </a>
-
-                <a href="/Login">
-                    <Button
-                        style={{
-                            fontSize: "20px",
-                            margin: "auto",
-                            width: "30%",
-                            marginTop: "20px",
-                            boxShadow: "1px 1px 25px rgba(0, 0, 255, 0.7)",
-                        }}>
-                        Login | Register
-                    </Button>
-                </a>
+                {b}
+                
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Nav, Navbar, Image, Button } from "react-bootstrap";
 import { AuthContext } from "./Firebase/Auth";
 import firebase from "firebase/compat/app";
