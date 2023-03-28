@@ -9,23 +9,23 @@ export default function MyNavbar() {
     const { currentUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const Botton = () => {
-        if (currentUser == null) {
+        if (!currentUser) {
             return (<Nav.Link href='/Login'>
                 {"Login " + String.fromCharCode(8594)}
             </Nav.Link>)
         } else {
             return (
+                <a href="/">
                 <Button
             onClick={() => Signout()}>
             Log out
           </Button>
+          </a>
             )
         }
     }
     const Signout = ()=>{
         doSignOut();
-        navigate(0);
-
     }
     const b = Botton();
     //const status = Botton();
