@@ -1,6 +1,54 @@
+import { useContext, useState } from "react";
 import { Nav, Navbar, Image, Button } from "react-bootstrap";
+import { AuthContext } from "./Firebase/Auth";
+import firebase from "firebase/compat/app";
+import firebaseApp from "./Firebase/firebase";
+import { doSignOut } from "./Firebase/firebaseops";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function MyNavbar() {
+
+    const { currentUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const Botton = () => {
+        if (currentUser === null) {
+            return (
+                <Button
+                style={{
+                    borderRadius: "30px",
+                }}
+                onClick={() => Login()}
+                >
+                    {"Login " + String.fromCharCode(8594)}
+                </Button>
+            )
+        } else {
+            return (
+                <Button
+                    style = {{
+                        borderRadius: "30px",
+                    }}
+                    onClick={() => Signout()}
+                    >
+                    {"Logout " + String.fromCharCode(8594)}
+                </Button>
+            )
+        }
+    }
+
+    const Login = () => {
+        navigate('/Login');
+    }
+
+    const Signout = () => {
+        doSignOut();
+        navigate(0);
+    }
+
+    const b = Botton();
+
     return (
         <div className="MyNavbar">
             <Navbar variant="light">
@@ -35,7 +83,7 @@ export default function MyNavbar() {
                     </Nav> */}
 
                     <Nav >
-                        <Nav.Link href='/Response'> Response </Nav.Link>
+                        <Nav.Link href='/EventResponse'> Response </Nav.Link>
                     </Nav>
 
                     <Nav >
@@ -45,13 +93,8 @@ export default function MyNavbar() {
                     <Nav className="ms-auto"
                         style={{
                             marginRight: "3%",
-                            border: "2px solid black",
-                            borderRadius: "30px",
-                            fontWeight: "bold"
                         }}>
-                        <Nav.Link href='/Login'>
-                            {"Login " + String.fromCharCode(8594)}
-                        </Nav.Link>
+                            {b}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

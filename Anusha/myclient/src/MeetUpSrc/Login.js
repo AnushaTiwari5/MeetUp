@@ -18,6 +18,7 @@ import firebase from 'firebase/compat/app';
 import firebaseApp from "./Firebase/firebase";
 import { doSignInWithEmailAndPassword } from "./Firebase/firebaseops";
 import { AuthContext } from './Firebase/Auth'
+import { useNavigate } from "react-router-dom";
 import MyNavbar from "./Navbar";
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
@@ -33,22 +34,30 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const navigate = useNavigate();
+
   const SignIn = async (e, p) => {
     //event.preventDefault();
     //let {email,password} = event.target.elements
+  
     console.log(e);
+
     try {
       console.log(e, p);
       await doSignInWithEmailAndPassword(e, p)
+      navigate('/CreatePoll')
       //alert("user id ",user.uid)
     } catch (err) {
       alert("Your email or password is incorrect")
     }
+
     if (currentUser) {
       const userCredential = firebase.auth().currentUser;
       console.log(userCredential.uid);
+      
     }
   }
+
   return (
     <div className="mainDisplay">
 
@@ -92,11 +101,10 @@ const Login = () => {
             </Button>
           </Space>
 
-          <a href="/CreatePoll">
             <Button style={{ width: 80 }} onClick={() => SignIn(email, password)}>
               {"Sign in"}
             </Button>
-          </a>
+          
 
         </Space>
 
