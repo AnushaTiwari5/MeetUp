@@ -7,10 +7,11 @@ import Login from './Login'
 import SignUp from './SignUp'
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-
+import {AuthProvider} from "./Firebase/Auth"
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Routes>
         <Route path='/CreatePoll' element={<CreatePoll />}>
@@ -23,6 +24,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 

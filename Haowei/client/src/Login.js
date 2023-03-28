@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useContext} from "react";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,48 +7,40 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space } from 'antd';
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
-// Home/Log in page
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBxOZMMCtyuLJeTPiTvzO-f48M2eUWAhjM",
-  authDomain: "icsi518projectm.firebaseapp.com",
-  projectId: "icsi518projectm",
-  storageBucket: "icsi518projectm.appspot.com",
-  messagingSenderId: "717353397564",
-  appId: "1:717353397564:web:7115df436c70a791424239",
-  measurementId: "G-6Q9WBXR07W"
-};
-
+import firebase from 'firebase/compat/app';
+import firebaseApp  from "./Firebase/firebase";
+import {doSignInWithEmailAndPassword}  from "./Firebase/firebaseops";
+import {AuthContext} from './Firebase/Auth'
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
+//const app = initializeApp(firebaseConfig);
+//const analytics = firebase.getAnalytics(firebaseApp);
+//const auth = firebase.getAuth();
 
-const signIn = (event,e,p) =>{
-   signInWithEmailAndPassword(auth, e, p)
-          .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log(user.uid)
-          // ...
-      })
-}
+
 
 
 const Login  = ()=>{
-  const auth = getAuth();
+ // const auth = firebase.getAuth();
+ const {currentUser} = useContext(AuthContext);
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-
+  const SignIn = async (e,p) =>{
+          //event.preventDefault();
+          //let {email,password} = event.target.elements
+          console.log(e);
+          try{
+              await doSignInWithEmailAndPassword(e, p)
+              //alert("user id ",user.uid)
+          }catch(err){
+              alert(err)
+          }
+          if (currentUser){
+            const userCredential = firebase.auth().currentUser;
+            console.log(userCredential.uid);
+          }
+  }
+  
   return (
     <Space direction="vertical">
       <Input
@@ -71,7 +63,7 @@ const Login  = ()=>{
           {passwordVisible ? 'Hide' : 'Show'}
         </Button>
       </Space>
-      <Button style={{ width: 80 }} onClick={() =>signIn(auth, email, password)}>
+      <Button style={{ width: 80 }} onClick={() =>SignIn(email, password)}>
           {"Sign in"}
         </Button>
     </Space>
