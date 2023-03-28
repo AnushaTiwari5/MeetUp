@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,52 +14,50 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+import firebase from 'firebase/compat/app';
+import firebaseApp from "./Firebase/firebase";
+import { doSignInWithEmailAndPassword } from "./Firebase/firebaseops";
+import { AuthContext } from './Firebase/Auth'
 import MyNavbar from "./Navbar";
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBxOZMMCtyuLJeTPiTvzO-f48M2eUWAhjM",
-  authDomain: "icsi518projectm.firebaseapp.com",
-  projectId: "icsi518projectm",
-  storageBucket: "icsi518projectm.appspot.com",
-  messagingSenderId: "717353397564",
-  appId: "1:717353397564:web:7115df436c70a791424239",
-  measurementId: "G-6Q9WBXR07W"
-};
-
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// const auth = getAuth();
 
-const signIn = (event, e, p) => {
-  signInWithEmailAndPassword(auth, e, p)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log(user.uid)
-      // ...
-    })
-}
+
 
 
 const Login = () => {
   const auth = getAuth();
+  const { currentUser } = useContext(AuthContext);
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-
+  const SignIn = async (e, p) => {
+    //event.preventDefault();
+    //let {email,password} = event.target.elements
+    console.log(e);
+    try {
+      console.log(e, p);
+      await doSignInWithEmailAndPassword(e, p)
+      //alert("user id ",user.uid)
+    } catch (err) {
+      alert("Your email or password is incorrect")
+    }
+    if (currentUser) {
+      const userCredential = firebase.auth().currentUser;
+      console.log(userCredential.uid);
+    }
+  }
   return (
     <div className="mainDisplay">
 
       <MyNavbar />
 
-      <div 
-      style={{
-        textAlign: "center"
-      }}>
+      <div
+        style={{
+          textAlign: "center"
+        }}>
         <h3>Welcome Back!</h3>
         <h4>Enter your credentials to continue</h4>
 
@@ -69,7 +67,7 @@ const Login = () => {
             border: "5px solid rgb(125, 112, 156)",
             borderRadius: "30px",
             padding: "3%",
-            
+
           }}>
 
           <Input
@@ -95,15 +93,15 @@ const Login = () => {
           </Space>
 
           <a href="/">
-          <Button style={{ width: 80 }} onClick={() => signIn(auth, email, password)}>
-            {"Sign in"}
-          </Button>
+            <Button style={{ width: 80 }} onClick={() => SignIn(email, password)}>
+              {"Sign in"}
+            </Button>
           </a>
-          
+
         </Space>
 
         <p>
-          Don't have an account? 
+          Don't have an account?
           <br />
           <a href="/SignUp">
             {"Create an account " + String.fromCharCode(8594)}
