@@ -104,13 +104,13 @@ const SignUp = () => {
         <h4>Enter your details to get started</h4>
 
         <Space direction="vertical"
-        style={{
-          margin: "5%",
-          border: "5px solid rgb(125, 112, 156)",
-          borderRadius: "30px",
-          padding: "3%",
-          
-        }}>
+          style={{
+            margin: "5%",
+            border: "5px solid rgb(125, 112, 156)",
+            borderRadius: "30px",
+            padding: "3%",
+
+          }}>
           <Input
             placeholder="Enter your email address"
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -143,9 +143,12 @@ const SignUp = () => {
               {checkVisible ? 'Hide' : 'Show'}
             </Button>
           </Space>
-          <Button style={{ width: 80 }} onClick={() => create_account(auth, email, password, repassword)}>
-            {"Sign in"}
-          </Button>
+          <a href="/CreatePoll">
+            <Button style={{ width: 80 }} onClick={() => create_account(auth, email, password, repassword)}>
+              {"Sign in"}
+            </Button>
+          </a>
+
         </Space>
       </div>
     </div>
