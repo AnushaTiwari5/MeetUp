@@ -48,7 +48,8 @@ const Login = () => {
       navigate('/CreatePoll')
       //alert("user id ",user.uid)
     } catch (err) {
-      alert("Your email or password is incorrect")
+      console.log(err);
+      alert(err);
     }
 
     if (currentUser) {

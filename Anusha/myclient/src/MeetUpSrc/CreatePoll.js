@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import MyNavbar from "./Navbar";
 
+import { AuthContext } from './Firebase/Auth'
+
+
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function LocationBookForm({ onSubmit }) {
+  
   const [index, setIndex] = useState(1)
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
@@ -26,6 +30,7 @@ function LocationBookForm({ onSubmit }) {
   return (
 
     <Background>
+      
       <form
         style={{
           marginInline: "10px"
@@ -155,13 +160,16 @@ function Background(props) {
 // }
 
 export default function LocationBook() {
+  const { currentUser } = useContext(AuthContext);
   const [sortedEntries, setsEntries] = useState([]);
 
   const addEntryTolocationBook = (entry) => {
     setsEntries([...sortedEntries, entry]);
     console.log(sortedEntries)
   };
-
+  const Bottom = () =>{
+    
+  }
   const remove = (index) => {
     setsEntries(sortedEntries.filter((id) => { return id.index !== index }))
     //sortedEntries.delete(index)
@@ -176,14 +184,20 @@ export default function LocationBook() {
       console.log(e)
     }
   }
-
+  const ifEmail= () =>{
+    if(currentUser!=null){
+      return(currentUser.email)
+    }else{
+      return(0);
+    }
+  }
   return (
     <section className="mainDisplay">
       <MyNavbar />
       <h2 style={{ textAlign: "center", marginTop: "5px" }}>
         Welcome to the Event Creation Page!
       </h2>
-
+      <p>{"Hello      "+ifEmail()}</p>
       <p style={{ textAlign: "center", fontSize: "25px" }}>Enter the relevant details for your event below</p>
 
       <div className='grid-container'
