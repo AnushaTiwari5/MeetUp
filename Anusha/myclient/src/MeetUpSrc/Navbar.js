@@ -16,22 +16,25 @@ export default function MyNavbar() {
         if (currentUser === null) {
             return (
                 <Button
-                style={{
-                    borderRadius: "30px",
-                }}
-                onClick={() => Login()}
+                    style={{
+                        borderRadius: "30px",
+                    }}
+                    onClick={() => Login()}
                 >
                     {"Login " + String.fromCharCode(8594)}
                 </Button>
             )
         } else {
+            /* console.log(currentUser.email); */
             return (
                 <Button
-                    style = {{
+                    style={{
                         borderRadius: "30px",
                     }}
                     onClick={() => Signout()}
-                    >
+                >
+                    {currentUser.email}
+                    <br />
                     {"Logout " + String.fromCharCode(8594)}
                 </Button>
             )
@@ -94,7 +97,7 @@ export default function MyNavbar() {
                         style={{
                             marginRight: "3%",
                         }}>
-                            {b}
+                        {b}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
