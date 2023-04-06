@@ -11,6 +11,7 @@ import { Button, Input, Space } from 'antd';
 import { InfoCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import { notification } from 'antd';
+import { useNavigate } from "react-router-dom";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -32,7 +33,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
-
 
 
 const create_account = (auth, email, password, rep) => {
@@ -83,6 +83,19 @@ const create_account = (auth, email, password, rep) => {
 }
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
+  const DoSignUp = (auth, email, password, rep) => {
+    try {
+      create_account(auth, email, password, rep);
+      navigate('/')
+  
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  }
+
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [repassword, setrepassword] = useState("");
@@ -143,11 +156,15 @@ const SignUp = () => {
               {checkVisible ? 'Hide' : 'Show'}
             </Button>
           </Space>
-          <a href="/CreatePoll">
-            <Button style={{ width: 80 }} onClick={() => create_account(auth, email, password, repassword)}>
-              {"Sign in"}
-            </Button>
-          </a>
+          {/* <a href="/CreatePoll">
+            
+          </a> */}
+          <Button style={{ width: 80 }}
+            /* onClick={() => create_account(auth, email, password, repassword)} */
+            onClick={() => DoSignUp(auth, email, password, repassword)}
+            >
+            {"Sign in"}
+          </Button>
 
         </Space>
       </div>

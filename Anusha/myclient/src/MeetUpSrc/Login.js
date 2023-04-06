@@ -45,7 +45,7 @@ const Login = () => {
     try {
       console.log(e, p);
       await doSignInWithEmailAndPassword(e, p)
-      navigate('/CreatePoll')
+      navigate('/')
       //alert("user id ",user.uid)
     } catch (err) {
       console.log(err);
