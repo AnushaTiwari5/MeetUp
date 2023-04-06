@@ -44,7 +44,7 @@ export default function MyNavbar() {
 
     const Signout = () => {
         doSignOut();
-        navigate(0);
+        navigate('/');
     }
 
     const b = Botton();

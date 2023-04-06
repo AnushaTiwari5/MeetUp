@@ -197,7 +197,9 @@ export default function LocationBook() {
       <h2 style={{ textAlign: "center", marginTop: "5px" }}>
         Welcome to the Event Creation Page!
       </h2>
-      <p>{"Hello      "+ifEmail()}</p>
+
+      {/* <p>{"Hello      "+ifEmail()}</p> */}
+      
       <p style={{ textAlign: "center", fontSize: "25px" }}>Enter the relevant details for your event below</p>
 
       <div className='grid-container'
