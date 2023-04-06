@@ -3,31 +3,35 @@ import MyNavbar from "./Navbar";
 
 import { Row, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import EventResponse from "./EventRepsonse";
 
 export default function Response() {
-    //const eventID;
-    //const responseID;
-    //const optionID; -> responseVal?
-    //const userID;
 
+    const [details, setDetails] = useState(null);
     const [eventdata, setEventdata] = useState(null);
+    const [display, setDisplay] = useState(false);
+
     var description = "";
     var title = "";
-    /* var responseData = {}; */
 
     useEffect(() => {
-        const url = `http://localhost:3000/PollData`;
-        fetch(url)
+        fetch(`http://localhost:3000/PollData`)
             .then((res) => res.json())
             .then((res) => {
                 setEventdata(res[0]);
             })
+
+        fetch(`http://localhost:3000/PollTitle`)
+            .then((res) => res.json())
+            .then((res) => {
+                setDetails(res)
+            })
+
     }, [])
 
-    if (eventdata != null) {
-        description = eventdata.description ? eventdata.description : "";
-        title = eventdata.title;
+    if (eventdata != null && details != null) {
+        description = details[0].description ? details[0].description : "";
+        title = details[0].title;
+        setDisplay(true);
     }
 
     const [mouseHoverN, setMouseHoverN] = useState(false);
@@ -152,7 +156,7 @@ export default function Response() {
                 <Button className='Yes'
                     style={{
                         background: "rgb(8, 94, 40)",
-                        opacity: mouseHoverY? 1 : 0.9,
+                        opacity: mouseHoverY ? 1 : 0.9,
                         border: 0
                     }}
                     onMouseEnter={mouseEnterY}
@@ -204,15 +208,15 @@ export default function Response() {
 
                 <br />
                 <Button className='changeResponse'
-                style={{
-                    background: "rgb(83, 43, 138)",
-                    marginTop: "10px",
-                    opacity: mouseHoverR ? 1 : 0.9,
-                    border: 0
-                }}
-                onMouseEnter={mouseEnterR}
-                onMouseLeave={mouseLeaveR}
-                onClick={() => setResponded(false)}
+                    style={{
+                        background: "rgb(83, 43, 138)",
+                        marginTop: "10px",
+                        opacity: mouseHoverR ? 1 : 0.9,
+                        border: 0
+                    }}
+                    onMouseEnter={mouseEnterR}
+                    onMouseLeave={mouseLeaveR}
+                    onClick={() => setResponded(false)}
                 >
                     Change your response?
                 </Button>
@@ -221,34 +225,69 @@ export default function Response() {
 
     }
 
+    function showDetails() {
+        return (
+            <div>
+                <h2
+                    style={{
+                        textAlign: "center"
+                    }}>
+                    {title}
+                </h2>
+                <h4
+                    style={{
+                        textAlign: "center"
+                    }}>
+                    {description}
+                </h4>
+
+                <p
+                    style={{
+                        paddingTop: "10px",
+                        lineHeight: "2.0",
+                        textAlign: "center"
+                    }}>
+                    <span style={{ fontSize: "30px" }}>{eventdata.start_time}</span>
+                    <br />
+                    <span style={{ fontSize: "30px" }}>{eventdata.end_time}</span>
+                    <br />
+                    <span style={{ fontSize: "25px" }}>{eventdata.location}</span>
+                </p>
+            </div>
+        )
+    }
+
     return (
         <div className="mainDisplay">
             <MyNavbar />
-            <h2
+
+            {/* <h2
                 style={{
                     textAlign: "center"
                 }}>
                 {title}
             </h2>
-            <h4 
-            style={{
+            <h4
+                style={{
                     textAlign: "center"
                 }}>
-                    {description}
+                {description}
             </h4>
 
-            <p 
+            <p
                 style={{
                     paddingTop: "10px",
                     lineHeight: "2.0",
                     textAlign: "center"
                 }}>
-                <span style={{ fontSize: "30px" }}>{eventdata.startTime}</span>
+                <span style={{ fontSize: "30px" }}>{eventdata.start_time}</span>
                 <br />
-                <span style={{ fontSize: "30px" }}>{eventdata.endTime}</span>
+                <span style={{ fontSize: "30px" }}>{eventdata.end_time}</span>
                 <br />
                 <span style={{ fontSize: "25px" }}>{eventdata.location}</span>
-            </p>
+            </p> */}
+
+            {display ? showDetails() : <h3>Loading details...</h3>}
 
             {responded ? showResponse() : showResponseButtons()}
 
