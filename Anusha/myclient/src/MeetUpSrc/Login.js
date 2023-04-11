@@ -25,9 +25,6 @@ import MyNavbar from "./Navbar";
 // const analytics = getAnalytics(app);
 // const auth = getAuth();
 
-
-
-
 const Login = () => {
   const auth = getAuth();
   const { currentUser } = useContext(AuthContext);
@@ -39,7 +36,7 @@ const Login = () => {
   const SignIn = async (e, p) => {
     //event.preventDefault();
     //let {email,password} = event.target.elements
-  
+
     console.log(e);
 
     try {
@@ -55,7 +52,7 @@ const Login = () => {
     if (currentUser) {
       const userCredential = firebase.auth().currentUser;
       console.log(userCredential.uid);
-      
+
     }
   }
 
@@ -102,10 +99,10 @@ const Login = () => {
             </Button>
           </Space>
 
-            <Button style={{ width: 80 }} onClick={() => SignIn(email, password)}>
-              {"Sign in"}
-            </Button>
-          
+          <Button style={{ width: 80 }} onClick={() => SignIn(email, password)}>
+            {"Sign in"}
+          </Button>
+
 
         </Space>
 

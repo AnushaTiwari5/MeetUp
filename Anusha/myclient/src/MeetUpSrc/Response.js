@@ -4,6 +4,7 @@ import MyNavbar from "./Navbar";
 import { Row, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
+
 export default function Response() {
 
     const [details, setDetails] = useState(null);
@@ -17,7 +18,7 @@ export default function Response() {
         fetch(`http://localhost:3000/PollData`)
             .then((res) => res.json())
             .then((res) => {
-                setEventdata(res[0]);
+                setEventdata(res);
             })
 
         fetch(`http://localhost:3000/PollTitle`)

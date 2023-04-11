@@ -3,9 +3,39 @@ import { useEffect, useState } from 'react';
 import MyNavbar from "./Navbar";
 import { MDBDataTable } from "mdbreact";
 
+function setDateTime (str) {
+    const months = {
+        "01" : "January",
+        "02" : "February",
+        "03" : "March",
+        "04" : "April",
+        "05" : "May",
+        "06" : "June",
+        "07" : "July",
+        "08" : "August",
+        "09" : "September",
+        "10" : "October",
+        "11" : "November",
+        "12" : "December",
+    }
+
+    let dt = "";
+    str = str.replace("T", " ").substring(0, 16);
+
+    let date = str.split(" ")[0];
+    let time = str.split(" ")[1];
+    let hr = parseInt(time.split(":")[0]);
+    
+    dt = date.split("-")[2] + " " + months[date.split("-")[1]] + ", " + date.split("-")[0] + " ";
+    dt += hr >= 12 ? (hr - 12) + time.substring(2) + "pm" : hr + time.substring(2) + "am";
+
+    return dt;
+}
+
 export default function Invite() {
 
     const [eventdata, setEventdata] = useState(null);
+    const data = [];
     const [details, setDetails] = useState(null);
     var title = "";
     var description = "";
@@ -31,17 +61,15 @@ export default function Invite() {
     }
 
     if (eventdata != null) {
-        console.log(eventdata);
-
         eventdata.map((poll, index) => {
-            poll = {
-                id: index,
-                start_time: poll.start_time.replace("T", " "),
-                end_time: poll.end_time.replace("T", " ") 
+            let obj = {
+                id: index + 1,
+                start_time: setDateTime(poll.start_time),
+                end_time: setDateTime(poll.end_time),
+                location: poll.location
             }
+            data.push(obj);
         })
-
-        //console.log("r: ", eventdata);
     }
 
     const [newEmail, setNewEmail] = useState("");
@@ -85,7 +113,7 @@ export default function Invite() {
             }
         ],
 
-        rows: eventdata
+        rows: data
 
     }
 

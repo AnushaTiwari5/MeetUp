@@ -76,10 +76,6 @@ const create_account = (auth, email, password, rep) => {
     }
 
   }
-
-
-
-
 }
 
 const SignUp = () => {
@@ -89,7 +85,7 @@ const SignUp = () => {
     try {
       create_account(auth, email, password, rep);
       navigate('/')
-  
+
     } catch (err) {
       console.log(err);
       alert(err);
@@ -162,7 +158,7 @@ const SignUp = () => {
           <Button style={{ width: 80 }}
             /* onClick={() => create_account(auth, email, password, repassword)} */
             onClick={() => DoSignUp(auth, email, password, repassword)}
-            >
+          >
             {"Sign in"}
           </Button>
 
