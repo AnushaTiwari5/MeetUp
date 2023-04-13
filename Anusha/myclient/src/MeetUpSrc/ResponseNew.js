@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Row, Button, Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import MyNavbar from "./Navbar";
 import { MDBDataTable } from "mdbreact";
@@ -32,9 +32,79 @@ function setDateTime(str) {
     return dt;
 }
 
+function ResponseButtons () {
+    const [responseVal, setResponseVal] = useState(null);
+
+    return (
+        <div>
+            <Button className='No'
+                style={{
+                    background: "rgb(190, 52, 52)",
+                    border: 0
+                }}
+                onClick={() => setResponseVal(0)}
+            >
+                No
+            </Button>
+
+            <br />
+
+            <Button className='Unlikely'
+                style={{
+                    background: "rgb(133, 48, 111)",
+                    border: 0
+                }}
+                onClick={() => setResponseVal(0.25)}
+            >
+                Unlikely
+            </Button>
+
+            <br />
+
+            <Button className='Maybe'
+                style={{
+                    background: "rgb(83, 43, 138)",
+                    border: 0
+                }}
+                onClick={() => setResponseVal(0.5)}
+            >
+                Maybe
+            </Button>
+
+            <br />
+
+            <Button className='Likely'
+                style={{
+                    background: "rgb(39, 39, 218)",
+                    border: 0
+                }}
+                onClick={() => setResponseVal(0.75)}
+            >
+                Likely
+            </Button>
+
+            <br />
+
+            <Button className='Yes'
+                style={{
+                    background: "rgb(8, 94, 40)",
+                    border: 0
+                }}
+                onClick={() => setResponseVal(1)}
+            >
+                Yes
+            </Button>
+
+        </div>
+    )
+}
+
 export default function ResponseNew() {
+
     const [eventdata, setEventdata] = useState(null);
     const [details, setDetails] = useState(null);
+    //const [responsePop, setResponsePop] = useState(false);
+
     const data = [];
     var title = "";
     var description = "";
@@ -66,10 +136,11 @@ export default function ResponseNew() {
                 start_time: setDateTime(poll.start_time),
                 end_time: setDateTime(poll.end_time),
                 location: poll.location,
-                respond: <Button
-                        >
+                showButton: true,
+                respondButton:
+                        <Button>
                             Respond
-                        </Button>
+                        </Button> 
             }
             data.push(obj);
         })
@@ -99,7 +170,7 @@ export default function ResponseNew() {
             },
             {
                 label: "Response",
-                field: "respond",
+                field: "respondButton",
                 width: 30
             }
         ],
@@ -121,6 +192,29 @@ export default function ResponseNew() {
                 <br />
                 <i style={{ fontSize: "15px" }}>{description}</i>
             </p>
+
+           {/*  <Modal
+                    show={responsePop}
+                    onHide={setResponsePop(false)}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            Enter New Details
+                        </Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        {ResponseButtons()}
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button
+                            onClick={setResponsePop(false)}
+                        >
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal> */}
 
             <div
                 style={{

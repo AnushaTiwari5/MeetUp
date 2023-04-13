@@ -63,7 +63,7 @@ const create_account = (auth, email, password, rep) => {
           notification.open({
             message: 'Create account faild',
             description:
-              'Check if you input valid email ot account is exist.',
+              'Check if you input valid email or account is exist.',
           });
           // ..
         });
@@ -71,7 +71,7 @@ const create_account = (auth, email, password, rep) => {
       notification.open({
         message: 'Create account faild',
         description:
-          'Check if you input valid email ot account is exist.',
+          'Check if you input valid email or account is exist.',
       });
     }
 

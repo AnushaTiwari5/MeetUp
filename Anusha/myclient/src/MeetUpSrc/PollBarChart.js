@@ -105,17 +105,20 @@ const options = {
 };
 
 const PollBarChart = () => (
-  <div className='mainDisplay'>
+  <div className='mainDisplay'
+    style={{
+      height: "100%"
+    }}>
     <MyNavbar />
     <div className="container mt-3">
-    <div>
-      <div >
-        <h2>Event Description</h2>
-        <p>Meeting to designate spring 1 tasks and select a timeline for implementation.</p>
-        <b>Poll Responses:</b>
+      <div>
+        <div >
+          <h2>Event Description</h2>
+          <p>Meeting to designate spring 1 tasks and select a timeline for implementation.</p>
+          <b>Poll Responses:</b>
+        </div>
       </div>
-    </div>
-    <Bar data={data} options={options} />
+      <Bar data={data} options={options} />
     </div>
   </div>
 );
