@@ -120,6 +120,9 @@ export default function ResponseNew() {
     }
 
     const responseChoice = (val) => {
+
+        //SEND ID AND VALUE TO BACKEND AND STORE IN DB
+        
         eventdata[optionIndex].responded = true;
         eventdata[optionIndex].responseVal = val;
         setResponsePop(false);
