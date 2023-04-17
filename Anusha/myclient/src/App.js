@@ -1,8 +1,8 @@
 import "./App.css";
 
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import {AuthProvider} from "./MeetUpSrc/Firebase/Auth"
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from "./MeetUpSrc/Firebase/Auth"
 import Home from "./MeetUpSrc/Home";
 /* import Response from "./MeetUpSrc/Response"; */
 import ResponseNew from "./MeetUpSrc/ResponseNew";
@@ -15,17 +15,17 @@ import SignUp from "./MeetUpSrc/Signup";
 function App() {
     return (
         <AuthProvider>
-        <Router>
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/CreatePoll' element={<CreatePoll />} />
-                <Route path='/Response' element={<ResponseNew />} />
-                <Route path='/Invite' element={<Invite />} />
-                <Route path='/ViewPoll' element={<PollBarChart />} />
-                <Route path='/Login' element={<Login />} />
-                <Route path='/SignUp' element={<SignUp />} />
-            </Routes>
-        </Router>
+            <HashRouter>
+                <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/CreatePoll' element={<CreatePoll />} />
+                    <Route path='/Response' element={<ResponseNew />} />
+                    <Route path='/Invite' element={<Invite />} />
+                    <Route path='/ViewPoll' element={<PollBarChart />} />
+                    <Route path='/Login' element={<Login />} />
+                    <Route path='/SignUp' element={<SignUp />} />
+                </Routes>
+            </HashRouter>
         </AuthProvider>
     )
 }

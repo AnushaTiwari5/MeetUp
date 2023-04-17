@@ -52,5 +52,30 @@ router.get('/PollTitle/:eventID', (req, res) => {
 
 });
 
+router.post('/user', function(req, res, next) {
+  const { email } = req.body;
+  var myres;
+  const sql = 'INSERT INTO user(email) SELECT ? WHERE NOT EXISTS (SELECT email from user WHERE email = ?)'
+  const values = [email,email];
+  con.query(sql,values, (error, results, fields) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      myres = results;
+      console.log(results);
+      //res.json(results);
+    }
+  });
+});
+
+router.post('/Events', function(req, res, next) {
+  con.query('SELECT * FROM event', (error, results, fields) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 module.exports = router;

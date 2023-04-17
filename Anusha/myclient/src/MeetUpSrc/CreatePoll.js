@@ -207,7 +207,7 @@ export default function LocationBook() {
 
   const submit = async () => {
     try {
-      let data = await axios.post("http://localhost:3000/CreatePoll", sortedEntries)//post result to server
+      let data = await axios.post("http://localhost:3000/CreatePoll", {'polldata':sortedEntries,'email':currentUser.email})//post result to server
       setEventId(data.data.event_id);
 
       if(eventID !== 0) {
@@ -216,6 +216,14 @@ export default function LocationBook() {
       }
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  const ifEmail= () =>{
+    if(currentUser!=null){
+      return(currentUser.email)
+    }else{
+      return(0);
     }
   }
 

@@ -1,8 +1,9 @@
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import MyNavbar from "./Navbar";
 import { MDBDataTable } from "mdbreact";
 import emailjs from 'emailjs-com';
+import { copy } from 'react-copy-to-clipboard';
 
 function setDateTime(str) {
     const months = {
@@ -44,6 +45,9 @@ export default function Invite() {
 
     const [newEmail, setNewEmail] = useState("");
     const [inviteeEmails, setInviteEmails] = useState([]);
+
+    const [copyText, setCopyText] = useState('');
+
 
     useEffect(() => {
         fetch(`http://localhost:3000/getInvite`)
@@ -96,7 +100,7 @@ export default function Invite() {
         setInviteEmails(arr => [...arr, newEmail]);
     }
 
-    const handleInvite = () => {
+    /* const handleInvite = () => {
         emailjs.init("LtLzCDTJpc1Av6YW4");
         
         const serviceID = "service_j93dxvy";
@@ -105,7 +109,7 @@ export default function Invite() {
         inviteeEmails.map((email, key) => {
 
         })
-    }
+    } */
 
     const tableData = {
         columns: [
@@ -135,6 +139,11 @@ export default function Invite() {
 
     }
 
+    const handleCopyText = (event) => {
+        setCopyText(event.target.value);
+        navigator.clipboard.writeText(copyText);
+    }
+
     return (
         <div className='mainDisplay'
         /* style={{
@@ -152,7 +161,7 @@ export default function Invite() {
             <div className='grid-container'
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'auto auto auto',
+                    gridTemplateColumns: 'auto auto',
                     paddingTop: "20px",
                     marginLeft: "10px"
                 }}>
@@ -174,7 +183,42 @@ export default function Invite() {
                     />
                 </div>
 
-                <div className='email-input'
+                <div className='invite-link'
+                style={{
+                    width: "80%",
+                    textAlign: "center",
+                    marginLeft: "5%"
+                }}
+                >
+                    <span>Invite link for responding: </span>
+
+                    {/* <Container
+                    style={{
+                        backgroundColor: "white",
+                        border: "1px solid black",
+                        borderRadius: "5%",
+                        
+                    }}
+                    >
+                        <span>{`http://localhost:3000/Response/${eventID}`}</span>
+                    </Container> */}
+
+                    <br />
+
+                    <Button
+                    style={{
+                        backgroundColor: "white",
+                        border: "1px solid black",
+                        color: "black",
+                        width: "90%"
+                    }}
+                    //onClick={(e) => handleCopyText(e)}
+                    >
+                        {`http://localhost:3000/Response/${eventID}`}
+                    </Button>
+                </div>
+
+                {/* <div className='email-input'
                     style={{
                         marginLeft: "2%"
                     }}>
@@ -216,7 +260,7 @@ export default function Invite() {
                     <b>Email List:</b>
                     <br />
                     {inviteeEmails.join(`\n`)}
-                </div>
+                </div> */}
             </div>
         </div>
     )

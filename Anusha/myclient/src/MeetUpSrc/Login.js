@@ -109,7 +109,7 @@ const Login = () => {
         <p>
           Don't have an account?
           <br />
-          <a href="/SignUp">
+          <a href="/#/SignUp">
             {"Create an account " + String.fromCharCode(8594)}
           </a>
         </p>

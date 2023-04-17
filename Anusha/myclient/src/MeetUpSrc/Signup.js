@@ -81,9 +81,10 @@ const create_account = (auth, email, password, rep) => {
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const DoSignUp = (auth, email, password, rep) => {
+  const DoSignUp = async (auth, email, password, rep) => {
     try {
       create_account(auth, email, password, rep);
+      let data = await axios.post("http://localhost:3000/user", {email});
       navigate('/')
 
     } catch (err) {

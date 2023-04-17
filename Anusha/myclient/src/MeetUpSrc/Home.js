@@ -13,7 +13,7 @@ export default function Home() {
         if (currentUser === null) {
             return (
                 <div>
-                    <a href="/CreatePoll">
+                    <a href="/#/CreatePoll">
                         <Button
                             style={{
                                 fontSize: "20px",
@@ -26,7 +26,7 @@ export default function Home() {
                         </Button>
                     </a>
 
-                    <a href="/Login">
+                    <a href="/#/Login">
                         <Button
                             style={{
                                 fontSize: "20px",
@@ -43,7 +43,7 @@ export default function Home() {
             )
         } else {
             return (
-                <a href="/CreatePoll">
+                <a href="/#/CreatePoll">
                     <Button
                         style={{
                             fontSize: "20px",
