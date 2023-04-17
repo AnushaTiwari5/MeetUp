@@ -192,7 +192,7 @@ export default function Invite() {
                 >
                     <span>Invite link for responding: </span>
 
-                    {/* <Container
+                    <Container
                     style={{
                         backgroundColor: "white",
                         border: "1px solid black",
@@ -201,11 +201,11 @@ export default function Invite() {
                     }}
                     >
                         <span>{`http://localhost:3000/Response/${eventID}`}</span>
-                    </Container> */}
+                    </Container>
 
                     <br />
 
-                    <Button
+                    {/* <Button
                     style={{
                         backgroundColor: "white",
                         border: "1px solid black",
@@ -215,7 +215,7 @@ export default function Invite() {
                     //onClick={(e) => handleCopyText(e)}
                     >
                         {`http://localhost:3000/Response/${eventID}`}
-                    </Button>
+                    </Button> */}
                 </div>
 
                 {/* <div className='email-input'

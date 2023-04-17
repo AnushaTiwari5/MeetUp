@@ -129,10 +129,6 @@ function LocationBookForm({ onSubmit }) {
           value='Add option'
         />
 
-        {/* <Button onClick={handleSubmit}>
-          Add Poll Option
-        </Button> */}
-
       </form>
     </Background>
   )
