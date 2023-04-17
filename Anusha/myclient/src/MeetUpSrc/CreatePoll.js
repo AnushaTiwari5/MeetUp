@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,12 +7,40 @@ import MyNavbar from "./Navbar";
 
 import { AuthContext } from './Firebase/Auth'
 
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
+function setDateTime(str) {
+  const months = {
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December",
+  }
+
+  let dt = "";
+  str = str.replace("T", " ").substring(0, 16);
+
+  let date = str.split(" ")[0];
+  let time = str.split(" ")[1];
+  let hr = parseInt(time.split(":")[0]);
+
+  dt = date.split("-")[2] + " " + months[date.split("-")[1]] + ", " + date.split("-")[0] + " ";
+  dt += hr >= 12 ? (hr - 12) + time.substring(2) + "pm" : hr + time.substring(2) + "am";
+
+  return dt;
+}
+
 function LocationBookForm({ onSubmit }) {
-  
+
   const [index, setIndex] = useState(1)
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
@@ -30,7 +58,7 @@ function LocationBookForm({ onSubmit }) {
   return (
 
     <Background>
-      
+
       <form
         style={{
           marginInline: "10px"
@@ -67,7 +95,7 @@ function LocationBookForm({ onSubmit }) {
           type='datetime-local'
           required
           value={startTime}
-          onChange={(event) => setStartTime(event.target.value.replace("T", " "))}
+          onChange={(event) => setStartTime(event.target.value)}
         />
         <br />
         <label style={{ fontWeight: "bold" }}>End Date and Time:</label>
@@ -77,7 +105,7 @@ function LocationBookForm({ onSubmit }) {
           type='datetime-local'
           required
           value={endTime}
-          onChange={(event) => setEndTime(event.target.value.replace("T", " "))}
+          onChange={(event) => setEndTime(event.target.value)}
         />
         <br />
         <label style={{ fontWeight: "bold" }}>Location:</label>
@@ -117,6 +145,8 @@ function Background(props) {
     </div>
   );
 }
+
+
 
 // function InformationTable({ entries }) {
 //   const [sortedEntries, setsEntries] = useState(entries);
@@ -160,16 +190,16 @@ function Background(props) {
 // }
 
 export default function LocationBook() {
+  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [sortedEntries, setsEntries] = useState([]);
+  const [eventID, setEventId] = useState(0);
 
   const addEntryTolocationBook = (entry) => {
     setsEntries([...sortedEntries, entry]);
     console.log(sortedEntries)
   };
-  const Bottom = () =>{
-    
-  }
+
   const remove = (index) => {
     setsEntries(sortedEntries.filter((id) => { return id.index !== index }))
     //sortedEntries.delete(index)
@@ -177,20 +207,43 @@ export default function LocationBook() {
 
   const submit = async () => {
     try {
-      alert("Poll created successfully");      
       let data = await axios.post("http://localhost:3000/CreatePoll", sortedEntries)//post result to server
+      setEventId(data.data.event_id);
 
+      if(eventID !== 0) {
+        console.log("new event: " + eventID);
+        alert("Poll created successfully");
+      }
     } catch (e) {
       console.log(e)
     }
   }
-  const ifEmail= () =>{
-    if(currentUser!=null){
-      return(currentUser.email)
-    }else{
-      return(0);
+
+  const handleInvite = async () => {
+    console.log("invite id: " + eventID);
+
+    try {
+      await fetch(`http://localhost:3000/setInvite/${eventID}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if(res === eventID) {
+          console.log("eid " + eventID);
+          navigate("/Invite");
+        }
+      })
+    } catch (error) {
+      console.log(error);
     }
   }
+
+  /* const ifEmail = () => {
+    if (currentUser != null) {
+      return (currentUser.email)
+    } else {
+      return (0);
+    }
+  } */
+
   return (
     <section className="mainDisplay">
       <MyNavbar />
@@ -198,8 +251,6 @@ export default function LocationBook() {
         Welcome to the Event Creation Page!
       </h2>
 
-      {/* <p>{"Hello      "+ifEmail()}</p> */}
-      
       <p style={{ textAlign: "center", fontSize: "25px" }}>Enter the relevant details for your event below</p>
 
       <div className='grid-container'
@@ -215,21 +266,26 @@ export default function LocationBook() {
         </div>
 
         <div>
-          <table className='informationTable'>
+          <table className='informationTable'
+          style={{
+            textAlign: "center",
+            borderCollapse: "separate",
+            borderSpacing: "10px 4px"
+          }}
+          >
             <thead>
               <tr>
-                <th>Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
-                <th>location</th>
+                <th>Location</th>
               </tr>
             </thead>
 
             <tbody>
               {sortedEntries.map((entry, index) => (
                 <tr key={index}>
-                  <td>{entry.startTime}</td>
-                  <td>{entry.endTime}</td>
+                  <td>{setDateTime(entry.startTime)}</td>
+                  <td>{setDateTime(entry.endTime)}</td>
                   <td>{entry.location}</td>
 
                   <td> <Button onClick={() => remove(entry.index)}>
@@ -239,6 +295,8 @@ export default function LocationBook() {
               ))}
             </tbody>
           </table>
+
+
 
           <Button
             style={{
@@ -250,11 +308,13 @@ export default function LocationBook() {
 
         </div>
 
-        <a href="/Invite">
-          <Button>
+        <div>
+          <Button
+          onClick={() => handleInvite()}
+          >
             Invite Participants
           </Button>
-        </a>
+        </div>
 
       </div>
 

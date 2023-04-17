@@ -1,14 +1,23 @@
 var express = require('express');
 var router = express.Router();
+var mysql = require('mysql2');
 
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "meetup"
+});
 
-router.get('/Invite', function(req, res, next) {
-   res.status(200).json();
-  });
+let event_id = 0;
 
-router.post ('/Invite', function(req, res, next) {
-    console.log(req.body)
-   });
-  
+router.get("/setInvite/:id", (req, res) => {
+   event_id = parseInt(req.params.id);
+   res.json(event_id);
+})
+
+router.get("/getInvite", (req, res) => {
+   res.json(event_id);
+})
 
 module.exports = router;

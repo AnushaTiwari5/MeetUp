@@ -2,21 +2,22 @@ import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import MyNavbar from "./Navbar";
 import { MDBDataTable } from "mdbreact";
+import emailjs from 'emailjs-com';
 
-function setDateTime (str) {
+function setDateTime(str) {
     const months = {
-        "01" : "January",
-        "02" : "February",
-        "03" : "March",
-        "04" : "April",
-        "05" : "May",
-        "06" : "June",
-        "07" : "July",
-        "08" : "August",
-        "09" : "September",
-        "10" : "October",
-        "11" : "November",
-        "12" : "December",
+        "01": "January",
+        "02": "February",
+        "03": "March",
+        "04": "April",
+        "05": "May",
+        "06": "June",
+        "07": "July",
+        "08": "August",
+        "09": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December",
     }
 
     let dt = "";
@@ -25,7 +26,7 @@ function setDateTime (str) {
     let date = str.split(" ")[0];
     let time = str.split(" ")[1];
     let hr = parseInt(time.split(":")[0]);
-    
+
     dt = date.split("-")[2] + " " + months[date.split("-")[1]] + ", " + date.split("-")[0] + " ";
     dt += hr >= 12 ? (hr - 12) + time.substring(2) + "pm" : hr + time.substring(2) + "am";
 
@@ -34,28 +35,41 @@ function setDateTime (str) {
 
 export default function Invite() {
 
+    const [eventID, setEventID] = useState(0);
     const [eventdata, setEventdata] = useState(null);
     const data = [];
     const [details, setDetails] = useState(null);
     var title = "";
     var description = "";
 
+    const [newEmail, setNewEmail] = useState("");
+    const [inviteeEmails, setInviteEmails] = useState([]);
+
     useEffect(() => {
-       fetch(`http://localhost:3000/PollData`)
+        fetch(`http://localhost:3000/getInvite`)
             .then((res) => res.json())
             .then((res) => {
-                setEventdata(res);
+                setEventID(res);
             })
-
-        fetch(`http://localhost:3000/PollTitle`)
-            .then((res) => res.json())
-            .then((res) => {
-                setDetails(res)
-            })
-
     }, [])
 
-    if (details != null) { 
+    useEffect(() => {
+        if (eventID !== 0) {
+            fetch(`http://localhost:3000/PollData/${eventID}`)
+                .then((res) => res.json())
+                .then((res) => {
+                    setEventdata(res);
+                })
+
+            fetch(`http://localhost:3000/PollTitle/${eventID}`)
+                .then((res) => res.json())
+                .then((res) => {
+                    setDetails(res)
+                })
+        }
+    }, [eventID])
+
+    if (details != null) {
         description = details[0].description ? details[0].description : "";
         title = details[0].title;
     }
@@ -72,9 +86,6 @@ export default function Invite() {
         })
     }
 
-    const [newEmail, setNewEmail] = useState("");
-    const [inviteeEmails, setInviteEmails] = useState([]);
-
 
     const showTyping = (msg) => {
         setNewEmail(msg)
@@ -86,7 +97,14 @@ export default function Invite() {
     }
 
     const handleInvite = () => {
-        alert("Invite sent");
+        emailjs.init("LtLzCDTJpc1Av6YW4");
+        
+        const serviceID = "service_j93dxvy";
+        const templateId = "template_tzz6aas";
+
+        inviteeEmails.map((email, key) => {
+
+        })
     }
 
     const tableData = {
