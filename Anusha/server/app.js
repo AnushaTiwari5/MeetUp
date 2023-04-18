@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var createPollRouter = require('./routes/CreatePoll');
 var inviteRouter = require('./routes/Invite');
+var responseRouter = require('./routes/Response');
 
 var app = express();
 app.use(cors());  //enable CORS
@@ -27,6 +28,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/', createPollRouter);
 app.use('/', inviteRouter);
+app.use('/', responseRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

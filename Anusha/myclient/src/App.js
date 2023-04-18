@@ -11,6 +11,7 @@ import CreatePoll from "./MeetUpSrc/CreatePoll"
 import PollBarChart from "./MeetUpSrc/PollBarChart";
 import Login from './MeetUpSrc/Login';
 import SignUp from "./MeetUpSrc/Signup";
+import Dashboard from "./MeetUpSrc/Dashboard";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path='/ViewPoll' element={<PollBarChart />} />
                     <Route path='/Login' element={<Login />} />
                     <Route path='/SignUp' element={<SignUp />} />
+                    <Route path='/Dashboard' element={<Dashboard />} />
                 </Routes>
             </HashRouter>
         </AuthProvider>

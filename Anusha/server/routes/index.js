@@ -74,6 +74,7 @@ router.post('/Events', function(req, res, next) {
       res.status(500).json({ error: error.message });
     } else {
       res.json(results);
+
     }
   });
 });

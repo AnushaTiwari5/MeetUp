@@ -1,7 +1,10 @@
 import { Row, Button, Modal } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import MyNavbar from "./Navbar";
 import { MDBDataTable } from "mdbreact";
+import { AuthContext } from './Firebase/Auth';
+import axios from 'axios';
+
 
 function setDateTime(str) {
     const months = {
@@ -51,6 +54,7 @@ export default function ResponseNew() {
     const [details, setDetails] = useState(null);
     const [responsePop, setResponsePop] = useState(false);
     const [optionIndex, setOptionIndex] = useState(0);
+    const { currentUser } = useContext(AuthContext);
 
     const data = [];
     var title = "";
@@ -98,7 +102,7 @@ export default function ResponseNew() {
                 responseVal: null,
                 respondButton:
                     <Button
-                        onClick={() => openRepsond(index)}
+                        onClick={() => openRespond(index)}
                     >
                         Respond
                     </Button>
@@ -108,7 +112,7 @@ export default function ResponseNew() {
     }
 
 
-    const openRepsond = (index) => {
+    const openRespond = (index) => {
         console.log(index);
         setOptionIndex(index);
         setResponsePop(true);
@@ -119,14 +123,16 @@ export default function ResponseNew() {
         setResponsePop(false);
     }
 
-    const responseChoice = (val) => {
+    const responseChoice = async (val) => {
 
         //SEND ID AND VALUE TO BACKEND AND STORE IN DB
-        
+
         eventdata[optionIndex].responded = true;
         eventdata[optionIndex].responseVal = val;
         setResponsePop(false);
         console.log("id: " + eventdata[optionIndex].option_id + "val: " + val);
+        let data = await axios.post("http://localhost:3000/Response", {'email':currentUser.email,'optionID':eventdata[optionIndex].option_id,'val':val,'eventID':eventID});
+
     }
 
     function ResponseBody() {

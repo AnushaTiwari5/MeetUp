@@ -76,6 +76,10 @@ export default function MyNavbar() {
                         <Nav.Link href='/'> Meet Up </Nav.Link>
                     </Nav>
 
+                    <Nav >
+                        <Nav.Link href='/#/Dashboard'> User Dashboard </Nav.Link>
+                    </Nav>
+
 
                     {/* <Nav className="createpoll">
                         <Nav.Link href="/CreatePoll"> Create Poll </Nav.Link>
