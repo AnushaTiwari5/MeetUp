@@ -86,11 +86,11 @@ export default function MyNavbar() {
                     </Nav> */}
 
                     <Nav >
-                        <Nav.Link href='/Response'> Response </Nav.Link>
+                        <Nav.Link href='/#/Response'> Response </Nav.Link>
                     </Nav>
 
                     <Nav >
-                        <Nav.Link href='/Viewpoll'> View Poll Stats </Nav.Link>
+                        <Nav.Link href='/#/Viewpoll'> View Poll Stats </Nav.Link>
                     </Nav>
 
                     <Nav className="ms-auto"

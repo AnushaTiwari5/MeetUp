@@ -13,20 +13,7 @@ export default function Home() {
         if (currentUser === null) {
             return (
                 <div>
-                    <a href="/CreatePoll">
-                        <Button
-                            style={{
-                                fontSize: "20px",
-                                margin: "auto",
-                                width: "30%",
-                                marginTop: "20px",
-                                boxShadow: "1px 1px 25px rgba(0, 0, 255, 0.7)",
-                            }}>
-                            Continue as Guest
-                        </Button>
-                    </a>
-
-                    <a href="/Login">
+                    <a href="/#/Login">
                         <Button
                             style={{
                                 fontSize: "20px",
@@ -43,7 +30,7 @@ export default function Home() {
             )
         } else {
             return (
-                <a href="/CreatePoll">
+                <a href="/#/CreatePoll">
                     <Button
                         style={{
                             fontSize: "20px",
