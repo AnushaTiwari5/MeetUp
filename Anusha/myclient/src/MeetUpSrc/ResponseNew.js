@@ -6,7 +6,9 @@ import { AuthContext } from './Firebase/Auth';
 import axios from 'axios';
 
 
-function setDateTime(str) {
+function setDateTime(dateTimeStr) {
+    let str = dateTimeStr;
+    
     const months = {
         "01": "January",
         "02": "February",

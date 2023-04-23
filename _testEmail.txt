@@ -1,0 +1,116 @@
+FRONTEND
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const InviteForm = () => {
+  const [emails, setEmails] = useState('');
+  const [message, setMessage] = useState('');
+
+  const sendInvites = async () => {
+    const res = await axios.post('/api/send-invites', { emails, message });
+    console.log(res.data); // Should print "Invites sent successfully"
+  };
+
+  return (
+    <div>
+      <label>
+        Enter email addresses:
+        <input type="text" value={emails} onChange={(e) => setEmails(e.target.value)} />
+      </label>
+      <br />
+      <label>
+        Enter message:
+        <textarea value={message} onChange={(e) => setMessage(e.target.value)} />
+      </label>
+      <br />
+      <button onClick={sendInvites}>Send invites</button>
+    </div>
+  );
+};
+
+export default InviteForm;
+
+
+
+BACKEND
+
+const express = require('express');
+const { v4: uuidv4 } = require('uuid');
+const bodyParser = require('body-parser');
+const sgMail = require('@sendgrid/mail');
+
+const app = express();
+const port = 5000;
+
+app.use(bodyParser.json());
+
+app.post('/api/send-invites', (req, res) => {
+  const { emails, message } = req.body;
+  const emailList = emails.split(',').map((email) => email.trim());
+  const tokens = emailList.map((email) => ({ email, token: uuidv4() }));
+
+  // Store tokens in a database or in memory
+  // ...
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+  emailList.forEach((email) => {
+    const inviteLink = `http://localhost:3000/invites/${tokens.find((t) => t.email === email).token}`;
+    const msg = {
+      to: email,
+      from: 'youremail@example.com',
+      subject: 'You have been invited!',
+      html: `<p>${message}</p><p>Click <a href="${inviteLink}">here</a> to accept the invite.</p>`
+    };
+    sgMail.send(msg);
+  });
+
+  res.json({ message: 'Invites sent successfully' });
+});
+
+app.get('/api/validate-token/:token', (req, res) => {
+  const { token } = req.params;
+  // validate token here
+  if (isValid) {
+    res.json({ isValid: true });
+  } else {
+    res.json({ isValid: false });
+  }
+});
+
+
+
+RESPONSE Page
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const InvitePage = () => {
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const token = window.location.pathname.split('/')[2]; // Assumes the token is the third path segment
+    axios.get(`/api/validate-token/${token}`)
+      .then((res) => {
+        if (res.data.isValid) {
+          setIsValid(true);
+        } else {
+          setIsValid(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsValid(false);
+      });
+  }, []);
+
+  if (isValid) {
+    return <div>This is the content of the invite page.</div>;
+  } else {
+    return <div>Invalid invite link.</div>;
+  }
+};
+
+export default InvitePage;
+

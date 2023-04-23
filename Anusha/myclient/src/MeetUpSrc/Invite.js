@@ -5,7 +5,9 @@ import { MDBDataTable } from "mdbreact";
 import emailjs from 'emailjs-com';
 import { copy } from 'react-copy-to-clipboard';
 
-function setDateTime(str) {
+function setDateTime(dateTimeStr) {
+    let str = dateTimeStr;
+    
     const months = {
         "01": "January",
         "02": "February",
