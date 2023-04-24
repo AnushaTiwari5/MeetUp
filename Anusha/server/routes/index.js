@@ -53,28 +53,45 @@ router.get('/PollTitle/:eventID', (req, res) => {
 });
 
 router.post('/user', function(req, res, next) {
-  const { email } = req.body;
+  const  email  = req.body.email;
+  const name1 = req.body.name
   var myres;
-  const sql = 'INSERT INTO user(email) SELECT ? WHERE NOT EXISTS (SELECT email from user WHERE email = ?)'
+  const sql = 'INSERT INTO user (email) SELECT ? WHERE NOT EXISTS (SELECT email from user WHERE email = ?)'
   const values = [email,email];
+  console.log(email)
+  console.log(values)
   con.query(sql,values, (error, results, fields) => {
-    if (error) {
-      res.status(500).json({ error: error.message });
-    } else {
-      myres = results;
-      console.log(results);
-      //res.json(results);
-    }
-  });
+     if (error) {
+       res.status(500).json({ error: error.message });
+     } else {
+       myres = results;
+       console.log(results);
+       
+     }});
+
+
+  // const sql2 = 'update user set name=? where email=?';
+  // con.query(sql2,{name:name1,email:email}, (error, results, fields) => {
+  //   if (error) {
+  //     res.status(500).json({ error: error.message });
+  //   } else {
+  //     myres = results;
+  //     console.log(results);
+  //     res.json(results);
+  //   }
+  //  });
+
+
+  
 });
 
 router.post('/Events', function(req, res, next) {
-  con.query('SELECT * FROM event', (error, results, fields) => {
+  const email = [req.body.email];
+  con.query('SELECT * FROM event JOIN user ON organizer=user_id WHERE email=?', email, (error, results, fields) => {
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
       res.json(results);
-
     }
   });
 });

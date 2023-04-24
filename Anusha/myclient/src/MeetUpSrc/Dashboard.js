@@ -29,7 +29,7 @@ export default function Dashboard() {
     useEffect(() => {
         const getEvents = async () => {
             try {
-                let { data } = await axios.post("http://localhost:3000/Events");
+                let { data } = await axios.post("http://localhost:3000/Events",{'email':currentUser.email});
                 setEvents(data);
                 console.log(data)
                 if (data.length == 0) {

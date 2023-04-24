@@ -81,10 +81,10 @@ const create_account = (auth, email, password, rep) => {
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const DoSignUp = async (auth, email, password, rep) => {
+  const DoSignUp = async (auth, email, password, rep,name) => {
     try {
-      create_account(auth, email, password, rep);
-      let data = await axios.post("http://localhost:3000/user", {email});
+      //create_account(auth, email, password, rep);
+      let data = await axios.post("http://localhost:3000/user", {'email':email,'name':name});
       navigate('/')
 
     } catch (err) {
@@ -96,6 +96,7 @@ const SignUp = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [repassword, setrepassword] = useState("");
+  const [name, setname] = useState("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [checkVisible, setCheckVisible] = React.useState(false)
 
@@ -121,6 +122,16 @@ const SignUp = () => {
             padding: "3%",
 
           }}>
+            <Input
+            placeholder="Enter your name"
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            suffix={
+              <Tooltip title="Enter your name">
+                <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+              </Tooltip>
+            }
+            onChange={(event) => setname(event.target.value)}
+          />
           <Input
             placeholder="Enter your email address"
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -158,7 +169,7 @@ const SignUp = () => {
           </a> */}
           <Button style={{ width: 80 }}
             /* onClick={() => create_account(auth, email, password, repassword)} */
-            onClick={() => DoSignUp(auth, email, password, repassword)}
+            onClick={() => DoSignUp(auth, email, password, repassword,name)}
           >
             {"Sign in"}
           </Button>
