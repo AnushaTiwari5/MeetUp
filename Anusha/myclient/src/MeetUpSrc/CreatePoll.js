@@ -10,7 +10,8 @@ import { AuthContext } from './Firebase/Auth'
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-function setDateTime(str) {
+function setDateTime(dateTimeStr) {
+  let str = dateTimeStr;
   const months = {
       "01": "January",
       "02": "February",

@@ -5,11 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/indexRouter');
 var usersRouter = require('./routes/users');
-var createPollRouter = require('./routes/CreatePoll');
-var inviteRouter = require('./routes/Invite');
-var responseRouter = require('./routes/Response');
+var createPollRouter = require('./routes/CreatePollRouter');
+var inviteRouter = require('./routes/InviteRouter');
+var responseRouter = require('./routes/ResponseRouter');
 
 var app = express();
 app.use(cors());  //enable CORS
