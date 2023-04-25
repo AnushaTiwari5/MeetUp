@@ -65,6 +65,10 @@ const Connection = () => {
                 return;
             }
         }
+        if(record.email==currentUser.email){
+            alert('You can not connect yourself')
+            return;
+        }
         try {
             let { data } = await axios.post("http://localhost:3000/connect/", { 'email': currentUser.email, 'email2': record.email });
             alert("Connection with " + record + " has built")
