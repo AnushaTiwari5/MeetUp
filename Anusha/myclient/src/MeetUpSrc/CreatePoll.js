@@ -206,11 +206,12 @@ export default function LocationBook() {
     try {
       let data = await axios.post("http://localhost:3000/CreatePoll", {'polldata':sortedEntries,'email':currentUser.email})//post result to server
       setEventId(data.data.event_id);
+      alert("Event created successfully");
 
-      if(eventID !== 0) {
+      /* if(eventID !== 0) {
         console.log("new event: " + eventID);
         alert("Poll created successfully");
-      }
+      } */
     } catch (e) {
       console.log(e)
     }

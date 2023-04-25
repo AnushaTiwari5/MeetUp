@@ -241,7 +241,12 @@ const PollBarChart = () => {
 
   return (
 
-    <div className='mainDisplay'>
+    <div className='mainDisplay'
+      style={{
+        height: "100%",
+        paddingBottom: "5%",
+      }}
+    >
 
       <MyNavbar />
 
@@ -270,9 +275,21 @@ const PollBarChart = () => {
                 onMouseEnter={() => handleOptionHover(index)}
                 onMouseLeave={() => handleOptionLeave()}
               >
-                <span style={{ fontWeight: "bold", color: getTextColor(likelihoods[rec_idx]), fontSize: "2.1rem", marginRight: "0.2rem" }}>
-                  {likelihoods[rec_idx]}%
-                </span> likely to attend at
+                <p>
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      color: getTextColor(likelihoods[rec_idx]),
+                      fontSize: "2.1rem",
+                      marginRight: "0.2rem"
+                    }}
+                  >
+                    {likelihoods[rec_idx]}%
+                  </span>
+                  <br />
+                  likely to attend at
+                </p>
+
                 <div style={{ display: "flex", flexDirection: "column", fontSize: "1.3rem", }}>
                   <span>Location: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][2]}</span > </span>
                   <span>Start Time: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][0]}</span > </span>
@@ -289,7 +306,7 @@ const PollBarChart = () => {
 
         </div>
 
-        <div style={{ flex: "60%", width: "100%", paddingLeft: "200px" }}>
+        <div style={{ flex: "60%", width: "100%", paddingLeft: "10%" }}>
           <b style={{ fontSize: "30px" }}>Poll Responses:</b>
           <div style={{ width: "100%" }}><Bar data={data} options={options} /></div>
         </div>

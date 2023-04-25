@@ -97,7 +97,7 @@ export default function Dashboard() {
             <h2 style={{textAlign: "center"}}>Your Events</h2>
             <br />
 
-            <Table
+            <Table 
             columns={columns.map(column => ({
                 ...column,
                 title: <span style={{ fontSize: "1.2rem" }}>{column.title}</span>
@@ -113,7 +113,7 @@ export default function Dashboard() {
 
         </div>
         <p>
-        <div >
+        <div className="mainDisplay">
             <Descriptions
               title="Event Descriptions"
               bordered
