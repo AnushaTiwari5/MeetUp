@@ -55,6 +55,13 @@ const Connection = () => {
     ]
 
     const connect = async(record) => {
+        for(let i = 0;i<userList.length;i++){
+            console.log(userList[i])
+            if(userList[i]==record.email){
+                alert('This user is connected');
+                return;
+            }
+        }
         try {
             let  {data}  = await axios.post("http://localhost:3000/connect/", { 'email': currentUser.email,'email2':record.email });
             alert("Connection with "+record+" has built")
