@@ -6,9 +6,11 @@ var mysql = require('mysql2');
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root",
+  password: "",
   database: "meetup"
 });
+
+
 
 /* GET home page. */
 router.get('/PollData/:eventID', function (req, res, next) {
@@ -91,6 +93,12 @@ router.post('/Events', function(req, res, next) {
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
+      let i=0;
+      for (i=0; i<results.length; i++){
+        results[i].start_time = results[i].start_time.toString().substring(4, 21);
+        results[i].end_time = results[i].end_time.toString().substring(4, 21);
+      }
+      //console.log(results);
       res.json(results);
     }
   });

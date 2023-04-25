@@ -8,8 +8,10 @@ import firebase from 'firebase/compat/app';
 import { Space, Table, Tag } from 'antd';
 import { useContext } from "react";
 import MyNavbar from "./Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Descriptions } from 'antd';
+import './Dashboard.css';
+
 
 export default function Dashboard() {
     const [eventID, setEventID] = useState(0);
@@ -59,7 +61,7 @@ export default function Dashboard() {
 
     const columns = [
         {
-            title: 'title',
+            title: 'Title',
             dataIndex: 'title'
         },
        ,
@@ -77,27 +79,41 @@ export default function Dashboard() {
             key: 'action',
             render: (_, record) => (
               <Space size="middle">
-                <a className="action-link" onClick={()=>click(record)}>See details</a>
-                <a className="action-link" onClick={()=>click2(record)}>Invite</a>
+                <a className="action-link" onClick={()=>click(record)} style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>See details</a>
+                <a className="action-link" onClick={()=>click2(record)} style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>Invite</a>
+                <Link to={`http://localhost:3000/ViewPollStats/${record.event_id}`} style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>See Poll Statistics</Link>
               </Space>
             ),
           },
 
     ]
-    //const data
 
     return (
+        
         <div className="mainDisplay">
+            
              <MyNavbar /><div>
             
             <h2 style={{textAlign: "center"}}>Your Events</h2>
             <br />
 
-            <Table columns={columns} dataSource={events} onChange={onChange} />
+            <Table
+            columns={columns.map(column => ({
+                ...column,
+                title: <span style={{ fontSize: "1.2rem" }}>{column.title}</span>
+            }))}
+            dataSource={events}
+            onChange={onChange}
+            rowClassName={(record, index) =>
+                index % 2 === 0 ? 'highlight-row-even' : 'highlight-row-odd'
+            }
+            style={{ padding: "4rem", border: "2px solid #ddd" }}
+            />
+
 
         </div>
         <p>
-        <div>
+        <div >
             <Descriptions
               title="Event Descriptions"
               bordered

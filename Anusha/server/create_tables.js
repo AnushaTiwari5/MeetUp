@@ -23,7 +23,7 @@ con.connect(function(err) {
     console.log("Connections Table created");
   });
 
-  var sql = "CREATE TABLE event (event_id INT AUTO_INCREMENT PRIMARY KEY, organizer INT, title VARCHAR(250), description VARCHAR(400), final_time DATETIME, final_location VARCHAR(250))";
+  var sql = "CREATE TABLE event (event_id INT AUTO_INCREMENT PRIMARY KEY, organizer INT, title VARCHAR(250), description VARCHAR(400), start_time DATETIME, end_time DATETIME, location VARCHAR(250))";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Events Table created");
