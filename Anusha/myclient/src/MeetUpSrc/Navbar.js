@@ -92,13 +92,14 @@ export default function MyNavbar() {
                         <Nav.Link href='/Invite'> Invite </Nav.Link>
                     </Nav> */}
 
-                    <Nav >
+                    {/* <Nav >
                         <Nav.Link href='/#/Response'> Response </Nav.Link>
-                    </Nav>
+                    </Nav> */}
 
-                    <Nav >
+                    {/* <Nav >
                         <Nav.Link href='/#/Viewpoll'> View Poll Stats </Nav.Link>
-                    </Nav>
+                    </Nav> */}
+                    
                     <Nav >
                         <Nav.Link href='/#/Connection'> Connection </Nav.Link>
                     </Nav>
