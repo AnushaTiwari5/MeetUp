@@ -49,6 +49,7 @@ router.post('/getconnections',function(req, res, next) {
           }});
         })
         router.post('/connect', function(req, res, next) {
+
           const sql = 'INSERT INTO connection (user_id1,user_id2) VALUES (?,?)'
           const values = [req.body.email,req.body.email2];
           console.log(values)
@@ -60,6 +61,9 @@ router.post('/getconnections',function(req, res, next) {
                console.log("Connection Created Successfully");
              }});
         });
+
+
+
         router.post('/disconnect', function(req, res, next) {
           const sql = 'delete from connection where (user_id1,user_id2) = (?,?)  '
           const values = [req.body.email,req.body.email2];
