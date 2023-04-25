@@ -44,6 +44,9 @@ export default function MyNavbar() {
     const Login = () => {
         navigate('/Login');
     }
+    const connect = () => {
+        navigate('/COnnection');
+    }
 
     const Signout = () => {
         doSignOut();
@@ -95,6 +98,9 @@ export default function MyNavbar() {
 
                     <Nav >
                         <Nav.Link href='/#/Viewpoll'> View Poll Stats </Nav.Link>
+                    </Nav>
+                    <Nav >
+                        <Nav.Link href='/#/Connection'> Connection </Nav.Link>
                     </Nav>
 
                     <Nav className="ms-auto"
