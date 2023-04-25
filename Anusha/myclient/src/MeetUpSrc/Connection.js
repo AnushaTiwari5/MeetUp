@@ -50,7 +50,19 @@ const Connection = () => {
             key: 'Action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a className="action-link" onClick={() => connect(record)} style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>connect</a>
+                    <a className="action-link"
+                        onClick={() => connect(record)}
+                        style={{
+                            textDecoration: 'none',
+                            padding: '0.5rem 1rem',
+                            backgroundColor: '#007bff',
+                            color: 'white',
+                            borderRadius: '0.5rem',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        Connect
+                    </a>
                 </Space>
             ),
         },
@@ -67,7 +79,7 @@ const Connection = () => {
         }
         try {
             let { data } = await axios.post("http://localhost:3000/connect/", { 'email': currentUser.email, 'email2': record.email });
-            alert("Connection with " + record + " has built")
+            alert("Connection with " + record.email + " has been created")
             console.log(data)
             window.location.reload();
         }
@@ -92,7 +104,7 @@ const Connection = () => {
         try {
             let { data } = await axios.post("http://localhost:3000/disconnect/", { 'email': currentUser.email, 'email2': record });
             console.log(data)
-            alert("disconnected")
+            alert("Disconnected from " + record)
             window.location.reload();
         }
         catch (e) {
@@ -112,14 +124,14 @@ const Connection = () => {
                     <List.Item
                         title={item.name}
                         actions={[
-                            <a 
+                            <a
                                 key="list-loadmore-edit"
                                 style={{
                                     border: "1px solid black",
-                                    padding: "5%",
-                                    borderRadius: "7%",
-                                    color: "white",
-                                    backgroundColor: "gray"
+                                    padding: '0.5rem 1rem',
+                                    backgroundColor: '#007bff',
+                                    color: 'white',
+                                    borderRadius: '0.5rem',
                                 }}
                                 onClick={() => disconnect(item)}>
                                 DISCONNECT

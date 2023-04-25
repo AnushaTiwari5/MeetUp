@@ -5,6 +5,7 @@ import MyNavbar from './Navbar';
 import axios from 'axios';
 import { AuthContext } from './Firebase/Auth'
 import { useLocation, useParams } from "react-router-dom";
+import "./PollBarChart.css"
 
 import {
   Chart as ChartJS,
