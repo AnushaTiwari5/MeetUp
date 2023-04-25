@@ -12,7 +12,7 @@ import PollBarChart from "./MeetUpSrc/PollBarChart";
 import Login from './MeetUpSrc/Login';
 import SignUp from "./MeetUpSrc/Signup";
 import Dashboard from "./MeetUpSrc/Dashboard";
-
+import Connection from "./MeetUpSrc/Connection";
 function App() {
     return (
         <AuthProvider>
@@ -26,6 +26,7 @@ function App() {
                     <Route path='/Login' element={<Login />} />
                     <Route path='/SignUp' element={<SignUp />} />
                     <Route path='/Dashboard' element={<Dashboard />} />
+                    <Route path='/Connection' element={<Connection/>} />
                 </Routes>
             </HashRouter>
         </AuthProvider>
