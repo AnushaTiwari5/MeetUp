@@ -64,14 +64,14 @@ export default function Dashboard() {
         },
        ,
         {
-            title:  'Time',
-            dataIndex: 'final_time'
+            title:  'Start Time',
+            dataIndex: 'start_time'
+        },
+        {
+            title:  'End Time',
+            dataIndex: 'end_time'
         },
         
-        {
-            title: 'Location',
-            dataIndex: 'final_location'
-        },
         {
             title: 'Action',
             key: 'action',
@@ -105,8 +105,9 @@ export default function Dashboard() {
             >
               <Descriptions.Item label="Title">{detail.title}</Descriptions.Item>
               <Descriptions.Item label="Orgnizer">{detail.orgnizer}</Descriptions.Item>
-              <Descriptions.Item label="time">{detail.final_time}</Descriptions.Item>
-              <Descriptions.Item label="Location">{detail.final_location}</Descriptions.Item>
+              <Descriptions.Item label="start time">{detail.start_time}</Descriptions.Item>
+              <Descriptions.Item label="end time">{detail.end_time}</Descriptions.Item>
+              <Descriptions.Item label="Location">{detail.location}</Descriptions.Item>
               <Descriptions.Item label="Event-ID">{detail.event_id}</Descriptions.Item>
               <Descriptions.Item label="Description">
               {detail.description}
