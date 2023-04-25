@@ -24,10 +24,10 @@ router.get('/PollData/:eventID', function (req, res, next) {
     }
   }) */
 
-  con.query('SELECT * FROM options WHERE poll_id = ' + mysql.escape(id), (error, results, fields)=> {
-    if(error){
-      res.status(500).json({error:error.message});
-    } else{
+  con.query('SELECT * FROM options WHERE poll_id = ' + mysql.escape(id), (error, results, fields) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+    } else {
       res.json(results);
     }
   })
@@ -35,7 +35,7 @@ router.get('/PollData/:eventID', function (req, res, next) {
 
 router.get('/PollTitle/:eventID', (req, res) => {
   let id = parseInt(req.params.eventID);
-  
+
   /* con.query('SELECT * FROM event WHERE event_id = (SELECT MAX(event_id) from event)', (error, results, fields) => {
     if (error) {
       res.status(500).json({ error: error.message });
@@ -54,22 +54,22 @@ router.get('/PollTitle/:eventID', (req, res) => {
 
 });
 
-router.post('/user', function(req, res, next) {
-  const  email  = req.body.email;
+router.post('/user', function (req, res, next) {
+  const email = req.body.email;
   const name1 = req.body.name
   var myres;
   const sql = 'INSERT INTO user (email) SELECT ? WHERE NOT EXISTS (SELECT email from user WHERE email = ?)'
-  const values = [email,email];
+  const values = [email, email];
   console.log(email)
   console.log(values)
-  con.query(sql,values, (error, results, fields) => {
-     if (error) {
-       res.status(500).json({ error: error.message });
-     } else {
-       myres = results;
-       console.log(results);
-       
-     }});
+  con.query(sql, values, (error, results, fields) => {
+    if (error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      myres = results;
+      console.log(results);
+    }
+  });
 
 
   // const sql2 = 'update user set name=? where email=?';
@@ -84,19 +84,29 @@ router.post('/user', function(req, res, next) {
   //  });
 
 
-  
+
 });
 
-router.post('/Events', function(req, res, next) {
+function isValidDate(date) {
+  return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
+}
+
+router.post('/Events', function (req, res, next) {
   const email = [req.body.email];
   con.query('SELECT * FROM event JOIN user ON organizer=user_id WHERE email=?', email, (error, results, fields) => {
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
-      let i=0;
-      for (i=0; i<results.length; i++){
-        results[i].start_time = results[i].start_time.toString().substring(4, 21);
-        results[i].end_time = results[i].end_time.toString().substring(4, 21);
+      let i = 0;
+      for (i = 0; i < results.length; i++) {
+        /* results[i].start_time = results[i].start_time.toString().substring(4, 21);
+        results[i].end_time = results[i].end_time.toString().substring(4, 21); */
+
+        if (isValidDate(results[i].start_time))
+          results[i].start_time = results[i].start_time.toString().substring(4, 21);
+        if (isValidDate(results[i].end_time))
+          results[i].end_time = results[i].end_time.toString().substring(4, 21);
+
       }
       //console.log(results);
       res.json(results);

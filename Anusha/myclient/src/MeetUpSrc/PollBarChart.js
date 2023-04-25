@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from './Navbar';
@@ -14,6 +14,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Zoom
 } from 'chart.js';
 ChartJS.register(
   CategoryScale,
@@ -21,12 +22,12 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const PollBarChart = () => {
-  
-  const [eventID, setEventID] = useState(10);
+
+  const [eventID, setEventID] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [hoveredOption, setHoveredOption] = useState(null);
   const [details, setDetails] = useState(null);
@@ -44,20 +45,20 @@ const PollBarChart = () => {
 
   useEffect(() => {
     fetch(`http://localhost:3000/getStatID`)
-        .then((res) => res.json())
-        .then((res) => {
-            setEventID(res);
-        })
+      .then((res) => res.json())
+      .then((res) => {
+        setEventID(res);
+      })
   }, [])
 
 
   useEffect(() => {
     if (eventID !== 0) {
-        fetch(`http://localhost:3000/PollTitle/${eventID}`)
-            .then((res) => res.json())
-            .then((res) => {
-                setDetails(res)
-            })
+      fetch(`http://localhost:3000/PollTitle/${eventID}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setDetails(res)
+        })
     }
   }, [eventID])
 
@@ -79,9 +80,9 @@ const PollBarChart = () => {
   }
 
 
-  function handleSubmit  ()  {
+  function handleSubmit() {
     if (selectedOption !== null) {
-      let data =  axios.post("http://localhost:3000/finalize", {'eventID':eventID,'optionID':optionIDs[selectedOption]});
+      let data = axios.post("http://localhost:3000/finalize", { 'eventID': eventID, 'optionID': optionIDs[selectedOption] });
       alert(`You have selected Option ${optionIDs[selectedOption]}`);
     } else {
       alert("Please select an option before submitting.");
@@ -142,11 +143,11 @@ const PollBarChart = () => {
   const [likelihoods, setLikelhoods] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
-  const percentages = [76,52,20];
+  const percentages = [76, 52, 20];
   useEffect(() => {
-    axios.get('http://localhost:3000/allresponses/'+eventID.toString())
+    axios.get('http://localhost:3000/allresponses/' + eventID.toString())
       .then(response => {
-        
+
         setData({
           ...data,
           labels: response.data.time_location,
@@ -168,6 +169,7 @@ const PollBarChart = () => {
 
   const options = {
     indexAxis: 'y',
+    //maintainAspectRatio: false,
     plugins: {  // 'legend' now within object 'plugins {}'
       legend: {
         labels: {
@@ -176,6 +178,26 @@ const PollBarChart = () => {
           font: {
             size: 18 // 'size' now within object 'font {}'
           }
+        }
+      }
+    },
+    plugins: {
+      title: {
+        display: true,
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'y'
+        },
+        zoom: {
+          pinch: {
+            enabled: true       // Enable pinch zooming
+          },
+          wheel: {
+            enabled: true       // Enable wheel zooming
+          },
+          mode: 'y',
         }
       }
     },
@@ -217,18 +239,21 @@ const PollBarChart = () => {
   }
 
   return (
-    
+
     <div className='mainDisplay'>
+
       <MyNavbar />
+
       <p style={{ textAlign: "center" }}>
-                <b style={{ fontSize: "50px" }}>{title}</b>
-                <br />
-                <i style={{ fontSize: "20px" }}>{description}</i>
+        <b style={{ fontSize: "50px" }}>{title}</b>
+        <br />
+        <i style={{ fontSize: "20px" }}>{description}</i>
       </p>
-      <div className="container mt-3" style={{ display: "flex", flexDirection: "row" }}>
-      <div style={{ flex: 1, paddingRight: "200px" }}>
+
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
+        <div style={{ flex: "0 0 30%", alignSelf: "flex-start", paddingLeft: "50px" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <b style={{ fontSize: "30px" }}>Attendance Likelihoods:</b>
+            <b style={{ fontSize: "30px" }}>Attendance Likelihoods:</b>
             {recommendations.map((rec_idx, index) => (
               <div
                 key={index}
@@ -244,30 +269,36 @@ const PollBarChart = () => {
                 onMouseEnter={() => handleOptionHover(index)}
                 onMouseLeave={() => handleOptionLeave()}
               >
-                <span style={{ fontWeight: "bold", color: getTextColor(likelihoods[rec_idx]), fontSize: "2.1rem", marginRight: "0rem" }}>
+                <span style={{ fontWeight: "bold", color: getTextColor(likelihoods[rec_idx]), fontSize: "2.1rem", marginRight: "0.2rem" }}>
                   {likelihoods[rec_idx]}%
-                </span>
-                <div style={{ display: "flex", flexDirection: "column" , fontSize: "1.3rem",}}>
-                <span>Location: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][2]}</span > </span>
-                <span>Start Time: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][0]}</span > </span>
-                <span>End Time: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][1]}</span > </span>
+                </span> likely to attend at
+                <div style={{ display: "flex", flexDirection: "column", fontSize: "1.3rem", }}>
+                  <span>Location: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][2]}</span > </span>
+                  <span>Start Time: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][0]}</span > </span>
+                  <span>End Time: <span style={{ fontWeight: "bold" }}>{data.labels[rec_idx][1]}</span > </span>
                 </div>
               </div>
             ))}
+
           </div>
+
           <button className="btn btn-primary mt-3" onClick={handleSubmit}>
             Finalize Time/Location
           </button>
+
         </div>
-        <div style={{ flex: 1 }}>
-        <b style={{ fontSize: "30px" }}>Poll Responses:</b>
-          <Bar data={data} options={options} />
+
+        <div style={{ flex: "60%", width: "100%", paddingLeft: "200px" }}>
+          <b style={{ fontSize: "30px" }}>Poll Responses:</b>
+          <div style={{ width: "100%" }}><Bar data={data} options={options} /></div>
         </div>
+
       </div>
       {selectedOption !== null && (
         <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, backgroundColor: "#f8f9fa", padding: "10px" }}>
           You have selected Option {selectedOption + 1}
         </div>
+
       )}
     </div>
   );

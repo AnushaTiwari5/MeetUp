@@ -58,6 +58,7 @@ router.post('/getconnections',function(req, res, next) {
              } else {
                myres = results;
                console.log("Connection Created Successfully");
+               res.end();
              }});
         });
         router.post('/disconnect', function(req, res, next) {
@@ -69,7 +70,8 @@ router.post('/getconnections',function(req, res, next) {
                res.status(500).json({ error: error.message });
              } else {
                myres = results;
-               console.log("disConnection Successfully");
+               console.log("Disconnected Successfully");
+               res.end();
              }});
         });
 

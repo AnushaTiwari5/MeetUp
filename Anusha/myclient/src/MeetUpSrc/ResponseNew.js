@@ -115,7 +115,6 @@ export default function ResponseNew() {
 
 
     const openRespond = (index) => {
-        console.log(index);
         setOptionIndex(index);
         setResponsePop(true);
     }
@@ -138,10 +137,8 @@ export default function ResponseNew() {
     }
 
     function ResponseBody() {
-        console.log("b: " + optionIndex);
 
         if (eventdata[optionIndex].responded) {
-            console.log("r: " + eventdata[optionIndex].responseVal);
             return (
                 <div>
                     You have already responded <b>{setResponseString(eventdata[optionIndex].responseVal)}</b>
