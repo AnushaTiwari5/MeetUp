@@ -11,6 +11,7 @@ var createPollRouter = require('./routes/CreatePollRouter');
 var inviteRouter = require('./routes/InviteRouter');
 var responseRouter = require('./routes/ResponseRouter');
 var statsRouter = require('./routes/ViewPollStats');
+var connections = require('./routes/connections');
 var app = express();
 app.use(cors());  //enable CORS
 
@@ -30,6 +31,7 @@ app.use('/', createPollRouter);
 app.use('/', inviteRouter);
 app.use('/', responseRouter);
 app.use('/', statsRouter);
+app.use('/', connections);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
