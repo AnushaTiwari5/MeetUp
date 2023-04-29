@@ -117,7 +117,11 @@ const Connection = () => {
     }
     return (
 
-        <div className="mainDisplay">
+        <div className="mainDisplay"
+        style={{
+            height: "100%"
+        }}
+        >
             <MyNavbar />
 
             <List

@@ -306,7 +306,7 @@ const PollBarChart = () => {
 
         </div>
 
-        <div style={{ flex: "60%", width: "100%", paddingLeft: "10%" }}>
+        <div style={{ flex: "60%", width: "100%", paddingLeft: "7%" }}>
           <b style={{ fontSize: "30px" }}>Poll Responses:</b>
           <div style={{ width: "100%" }}><Bar data={data} options={options} /></div>
         </div>
