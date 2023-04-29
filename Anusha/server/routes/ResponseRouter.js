@@ -3,12 +3,12 @@ var router = express.Router();
 var mysql = require('mysql2');
 
 var con = mysql.createConnection({
-   host: "localhost",
-   user: "root",
-   password: "root",
-   database: "meetup"
- });
- 
+  host: "database-1.cgvjmyk27ifv.us-east-1.rds.amazonaws.com",
+  user: "root",
+  password: "12345678",
+  database: "meetup"
+});
+
 router.get("/Viewpoll/:id", (req, res) => {
   console.log(req.params);
   const eventID = parseInt(req.params.id);
