@@ -17,7 +17,7 @@ con.connect(function(err) {
     console.log("Users Table created");
   });
 
-  var sql = "CREATE TABLE connection (connection_id INT AUTO_INCREMENT PRIMARY KEY, user_id1 INT, user_id2 INT)";
+  var sql = "CREATE TABLE connection (connection_id INT AUTO_INCREMENT PRIMARY KEY, user_id1 VARCHAR(100), user_id2 VARCHAR(100))";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("Connections Table created");
