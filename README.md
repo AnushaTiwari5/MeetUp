@@ -53,3 +53,6 @@ Our project is a web application that can be used to make event organization eas
 ## Test Credentials
 -   Email: meetupevents518@gmail.com
 -   Password: MeetupTest123
+
+## Github Link
+https://github.com/AnushaTiwari5/MeetUp
