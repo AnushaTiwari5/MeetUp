@@ -58,6 +58,10 @@ export default function Dashboard() {
         alert(`Your invitation code is: http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/Response/`+record.event_id)
     }
 
+    const click3 = (record) => {
+        fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/ViewPollStats/${record.event_id}`)
+    }
+
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
     };
@@ -82,14 +86,33 @@ export default function Dashboard() {
             key: 'action',
             render: (_, record) => (
               <Space size="middle">
-                <a className="action-link" onClick={()=>click(record)} style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>See details</a>
-                <a className="action-link" onClick={()=>click2(record)} style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>Invite</a>
-                <Link 
+                <a className="action-link" 
+                onClick={()=>click(record)} 
+                style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}
+                >
+                    See details
+                </a>
+
+                <a className="action-link" 
+                onClick={()=>click2(record)} 
+                style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}
+                >
+                    Invite
+                </a>
+
+                {/* <Link 
                 //to={`http://localhost:3000/ViewPollStats/${record.event_id}`} 
                 to={`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/ViewPollStats/${record.event_id}`} 
                 style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}>
                     See Poll Statistics
-                </Link>
+                </Link> */}
+
+                <a
+                onClick={()=>click3(record)}
+                style={{ textDecoration: 'none', padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', borderRadius: '0.5rem', fontWeight: 'bold' }}
+                >
+                    See Poll Statistics
+                </a>
               </Space>
             ),
           },
