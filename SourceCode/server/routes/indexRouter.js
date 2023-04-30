@@ -55,35 +55,22 @@ router.get('/PollTitle/:eventID', (req, res) => {
 
 router.post('/user', function (req, res, next) {
   const email = req.body.email;
-  const name1 = req.body.name
+  const name = req.body.name;
   var myres;
-  const sql = 'INSERT INTO user (email) SELECT ? WHERE NOT EXISTS (SELECT email from user WHERE email = ?)'
-  const values = [email, email];
-  console.log(email)
-  console.log(values)
+  const sql = 'INSERT INTO user (email,name) SELECT ?,? WHERE NOT EXISTS (SELECT email,name from user WHERE email = ? AND name = ?)';
+  console.log(sql);
+  const values = [email, name, email, name];
+  console.log(email);
+  console.log(values);
   con.query(sql, values, (error, results, fields) => {
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
       myres = results;
       console.log(results);
-      res.json("success");
+
     }
   });
-
-
-  // const sql2 = 'update user set name=? where email=?';
-  // con.query(sql2,{name:name1,email:email}, (error, results, fields) => {
-  //   if (error) {
-  //     res.status(500).json({ error: error.message });
-  //   } else {
-  //     myres = results;
-  //     console.log(results);
-  //     res.json(results);
-  //   }
-  //  });
-
-
 
 });
 
