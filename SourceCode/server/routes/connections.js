@@ -4,7 +4,7 @@ var router = express.Router();
 var mysql = require('mysql2');
 
 var con = mysql.createConnection({
-  host: "database-1.cgvjmyk27ifv.us-east-1.rds.amazonaws.com",
+  host: "database-01.cgvjmyk27ifv.us-east-1.rds.amazonaws.com",
   user: "root",
   password: "1TeamMDataBase0010",
   database: "meetup"
