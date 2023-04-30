@@ -17,6 +17,9 @@ Our project is a web application that can be used to make event organization eas
     -   Organizers can connect with other users using their email.
     -   User can decide to disconnect some connections.
 
+-   Merging and styling of new pages
+    - Completed by Anusha Tiwari
+
 ## Overview of Individual Contributions
 -	Anusha Tiwari
     -   Worked mainly on the client-side of the application.
