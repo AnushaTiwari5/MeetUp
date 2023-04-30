@@ -67,6 +67,7 @@ router.post('/user', function (req, res, next) {
     } else {
       myres = results;
       console.log(results);
+      res.json("success");
     }
   });
 
