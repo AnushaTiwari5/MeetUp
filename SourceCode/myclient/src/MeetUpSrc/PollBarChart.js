@@ -45,7 +45,8 @@ const PollBarChart = () => {
   }, [location.search]);*/
 
   useEffect(() => {
-    fetch(`http://localhost:3000/getStatID`)
+    //fetch(`http://localhost:3000/getStatID`)
+    fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/getStatID`)
       .then((res) => res.json())
       .then((res) => {
         setEventID(res);
@@ -55,7 +56,8 @@ const PollBarChart = () => {
 
   useEffect(() => {
     if (eventID !== 0) {
-      fetch(`http://localhost:3000/PollTitle/${eventID}`)
+      //fetch(`http://localhost:3000/PollTitle/${eventID}`)
+      fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/PollTitle/${eventID}`)
         .then((res) => res.json())
         .then((res) => {
           setDetails(res)
@@ -83,7 +85,8 @@ const PollBarChart = () => {
 
   function handleSubmit() {
     if (selectedOption !== null) {
-      let data = axios.post("http://localhost:3000/finalize", { 'eventID': eventID, 'optionID': optionIDs[selectedOption] });
+      //let data = axios.post("http://localhost:3000/finalize", { 'eventID': eventID, 'optionID': optionIDs[selectedOption] });
+      let data = axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/finalize", { 'eventID': eventID, 'optionID': optionIDs[selectedOption] });
       alert(`You have selected Option ${optionIDs[selectedOption]}`);
     } else {
       alert("Please select an option before submitting.");
@@ -146,7 +149,8 @@ const PollBarChart = () => {
 
   const percentages = [76, 52, 20];
   useEffect(() => {
-    axios.get('http://localhost:3000/allresponses/' + eventID.toString())
+    //axios.get('http://localhost:3000/allresponses/' + eventID.toString())
+    axios.get('http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/allresponses/' + eventID.toString())
       .then(response => {
 
         setData({
