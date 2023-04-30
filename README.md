@@ -26,6 +26,7 @@ Our project is a web application that can be used to make event organization eas
     -   Developed landing page, navigation bar, event invitation and user response.
     -   Worked on merging and integrating code of all members on both the frontend and the backend. 
     -   Worked on styling of all client-side pages.
+    -   Wrote README and Instructions documents for final submission
 
 -	Teimur Khan 
     -   Worked mainly on the server-side of the application.
@@ -40,6 +41,15 @@ Our project is a web application that can be used to make event organization eas
     -	Developed user dashboard function with both front and backend.
     -	Contributed to some styling and merging.
 
+## Instructions on how to compile and run
+-   The application can be accessed using the ec2 link mentioned below. 
+-   The application requires a user to be logged in. You could either created your own account, or log in using the credentials listed below. 
+-   Further instructions on how to interact with and test the application are mentioned in the provided Instructions_TeamM.pdf
 
+## AWS Link
+-   http://ec2-54-174-186-17.compute-1.amazonaws.com:3000
+-   PORT: 3000
 
-
+## Test Credentials
+-   Email: meetupevents518@gmail.com
+-   Password: MeetupTest123
