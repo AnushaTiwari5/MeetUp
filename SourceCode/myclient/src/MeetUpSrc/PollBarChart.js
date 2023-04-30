@@ -27,14 +27,16 @@ ChartJS.register(
 );
 
 const PollBarChart = () => {
-
-  const [eventID, setEventID] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [hoveredOption, setHoveredOption] = useState(null);
   const [details, setDetails] = useState(null);
   const [optionIDs, setOptionIDs] = useState(null);
   var title = "";
   var description = "";
+
+  const location = useLocation();
+  const [eventID, setEventID] = useState(location.state.event_id);
+
 
   /*useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -44,14 +46,14 @@ const PollBarChart = () => {
     }
   }, [location.search]);*/
 
-  useEffect(() => {
+ /*  useEffect(() => {
     //fetch(`http://localhost:3000/getStatID`)
     fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/getStatID`)
       .then((res) => res.json())
       .then((res) => {
         setEventID(res);
       })
-  }, [])
+  }, []) */
 
 
   useEffect(() => {
