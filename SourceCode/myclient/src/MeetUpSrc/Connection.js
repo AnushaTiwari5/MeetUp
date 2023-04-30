@@ -22,7 +22,8 @@ const Connection = () => {
     useEffect(() => {
         const getList = async () => {
             try {
-                let { data } = await axios.post("http://localhost:3000/getconnections/", { 'email': currentUser.email });
+                //let { data } = await axios.post("http://localhost:3000/getconnections/", { 'email': currentUser.email });
+                let { data } = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/getconnections/", { 'email': currentUser.email });
                 setList(data);
                 console.log(data)
                 if (data.length == 0) {
@@ -82,7 +83,8 @@ const Connection = () => {
             return;
         }
         try {
-            let { data } = await axios.post("http://localhost:3000/connect/", { 'email': currentUser.email, 'email2': record.email });
+            //let { data } = await axios.post("http://localhost:3000/connect/", { 'email': currentUser.email, 'email2': record.email });
+            let { data } = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/connect/", { 'email': currentUser.email, 'email2': record.email });
             alert("Connection with " + record.email + " has been created")
             console.log(data)
             window.location.reload();
@@ -93,7 +95,8 @@ const Connection = () => {
     }
     const onSearch = async (val) => {
         try {
-            let { data } = await axios.post("http://localhost:3000/getUser/", { 'email': val });
+            //let { data } = await axios.post("http://localhost:3000/getUser/", { 'email': val });
+            let { data } = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/getUser/", { 'email': val });
             setSearch(data);
             console.log(data)
 
@@ -106,7 +109,8 @@ const Connection = () => {
     const disconnect = async (record) => {
         //console.log(record)
         try {
-            let { data } = await axios.post("http://localhost:3000/disconnect/", { 'email': currentUser.email, 'email2': record });
+            //let { data } = await axios.post("http://localhost:3000/disconnect/", { 'email': currentUser.email, 'email2': record });
+            let { data } = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/disconnect/", { 'email': currentUser.email, 'email2': record });
             console.log(data)
             alert("Disconnected from " + record)
             window.location.reload();

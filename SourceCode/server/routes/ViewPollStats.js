@@ -17,7 +17,8 @@ router.get("/ViewPollStats/:id", (req, res) => {
     console.log(req.params);
     event_id = parseInt(req.params.id);
     console.log(event_id);
-    res.redirect("http://localhost:3001/#/Viewpoll");
+    //res.redirect("http://localhost:3001/#/Viewpoll");
+    res.redirect("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/#/Viewpoll");
 })
 
 module.exports = router;

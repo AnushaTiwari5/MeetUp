@@ -63,7 +63,8 @@ export default function ResponseNew() {
     var description = "";
 
     useEffect(() => {
-        fetch(`http://localhost:3000/getInvite`)
+        //fetch(`http://localhost:3000/getInvite`)
+        fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/getInvite`)
             .then((res) => res.json())
             .then((res) => {
                 setEventID(res);
@@ -72,13 +73,15 @@ export default function ResponseNew() {
 
     useEffect(() => {
         if (eventID !== 0) {
-            fetch(`http://localhost:3000/PollData/${eventID}`)
+            //fetch(`http://localhost:3000/PollData/${eventID}`)
+            fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/PollData/${eventID}`)
                 .then((res) => res.json())
                 .then((res) => {
                     setEventdata(res);
                 })
 
-            fetch(`http://localhost:3000/PollTitle/${eventID}`)
+            //fetch(`http://localhost:3000/PollTitle/${eventID}`)
+            fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/PollTitle/${eventID}`)
                 .then((res) => res.json())
                 .then((res) => {
                     setDetails(res)
@@ -132,7 +135,8 @@ export default function ResponseNew() {
         eventdata[optionIndex].responseVal = val;
         setResponsePop(false);
         console.log("id: " + eventdata[optionIndex].option_id + "val: " + val);
-        let data = await axios.post("http://localhost:3000/Response", {'email':currentUser.email,'optionID':eventdata[optionIndex].option_id,'val':val,'eventID':eventID});
+        //let data = await axios.post("http://localhost:3000/Response", {'email':currentUser.email,'optionID':eventdata[optionIndex].option_id,'val':val,'eventID':eventID});
+        let data = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/Response", {'email':currentUser.email,'optionID':eventdata[optionIndex].option_id,'val':val,'eventID':eventID});
 
     }
 

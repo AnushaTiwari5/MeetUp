@@ -204,7 +204,8 @@ export default function LocationBook() {
 
   const submit = async () => {
     try {
-      let data = await axios.post("http://localhost:3000/CreatePoll", {'polldata':sortedEntries,'email':currentUser.email})//post result to server
+      //let data = await axios.post("http://localhost:3000/CreatePoll", {'polldata':sortedEntries,'email':currentUser.email}) //post result to server
+      let data = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/CreatePoll", {'polldata':sortedEntries,'email':currentUser.email})//post result to server
       setEventId(data.data.event_id);
       alert("Event created successfully");
 
@@ -229,7 +230,8 @@ export default function LocationBook() {
     console.log("invite id: " + eventID);
 
     try {
-      await fetch(`http://localhost:3000/setInvite/${eventID}`)
+      //await fetch(`http://localhost:3000/setInvite/${eventID}`)
+      await fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/setInvite/${eventID}`)
       .then((res) => res.json())
       .then((res) => {
         if(res === eventID) {

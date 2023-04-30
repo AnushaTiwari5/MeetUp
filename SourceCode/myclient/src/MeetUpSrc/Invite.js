@@ -52,7 +52,8 @@ export default function Invite() {
 
 
     useEffect(() => {
-        fetch(`http://localhost:3000/getInvite`)
+        //fetch(`http://localhost:3000/getInvite`)
+        fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/getInvite`)
             .then((res) => res.json())
             .then((res) => {
                 setEventID(res);
@@ -61,13 +62,15 @@ export default function Invite() {
 
     useEffect(() => {
         if (eventID !== 0) {
-            fetch(`http://localhost:3000/PollData/${eventID}`)
+            //fetch(`http://localhost:3000/PollData/${eventID}`)
+            fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/PollData/${eventID}`)
                 .then((res) => res.json())
                 .then((res) => {
                     setEventdata(res);
                 })
 
-            fetch(`http://localhost:3000/PollTitle/${eventID}`)
+            //fetch(`http://localhost:3000/PollTitle/${eventID}`)
+            fetch(`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/PollTitle/${eventID}`)
                 .then((res) => res.json())
                 .then((res) => {
                     setDetails(res)
@@ -141,11 +144,6 @@ export default function Invite() {
 
     }
 
-    const handleCopyText = (event) => {
-        setCopyText(event.target.value);
-        navigator.clipboard.writeText(copyText);
-    }
-
     return (
         <div className='mainDisplay'
         /* style={{
@@ -202,22 +200,14 @@ export default function Invite() {
                         
                     }}
                     >
-                        <span>{`http://localhost:3000/Response/${eventID}`}</span>
+                        <span>
+                            {/* {`http://localhost:3000/Response/${eventID}`} */}
+                            {`http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/Response/${eventID}`}
+                            </span>
                     </Container>
 
                     <br />
 
-                    {/* <Button
-                    style={{
-                        backgroundColor: "white",
-                        border: "1px solid black",
-                        color: "black",
-                        width: "90%"
-                    }}
-                    //onClick={(e) => handleCopyText(e)}
-                    >
-                        {`http://localhost:3000/Response/${eventID}`}
-                    </Button> */}
                 </div>
 
                 {/* <div className='email-input'

@@ -13,7 +13,9 @@ router.get("/Viewpoll/:id", (req, res) => {
   console.log(req.params);
   const eventID = parseInt(req.params.id);
   console.log(eventID);
-  res.redirect("http://localhost:3001/#/Viewpoll");
+  //res.redirect("http://localhost:3001/#/Viewpoll");
+  res.redirect("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/#/Viewpoll");
+  
 });
 
 router.post('/Response', function(req, res, next) {

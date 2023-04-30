@@ -84,7 +84,8 @@ const SignUp = () => {
   const DoSignUp = async (auth, email, password, rep,name) => {
     try {
       //create_account(auth, email, password, rep);
-      let data = await axios.post("http://localhost:3000/user", {'email':email,'name':name});
+      //let data = await axios.post("http://localhost:3000/user", {'email':email,'name':name});
+      let data = await axios.post("http://ec2-54-174-186-17.compute-1.amazonaws.com:3000/user", {'email':email,'name':name});
       navigate('/')
 
     } catch (err) {
