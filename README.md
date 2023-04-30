@@ -28,7 +28,7 @@ Our project is a web application that can be used to make event organization eas
     o	Worked mainly on the server-side of the application.
     o	Created the tables and queries needed to insert and fetch data from the application into the database for all pages.
     o	Developed logic and front-end of displaying the poll responses as a bar chart.
-    o	Developed probabilistic model to recommend the poll with the most attendance using a weighted maximum likelihood estimator (see Setion III and IV).
+    o	Developed probabilistic model to recommend the poll with the most attendance using a [weighted maximum likelihood estimator (see Setion III and IV).](http://www.eg.bucknell.edu/~phys310/skills/data_analysis/mle_intro.pdf)
 
 -	Haowei Qing
     o	Developed create poll page.
